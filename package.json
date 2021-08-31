@@ -1,24 +1,32 @@
 {
-  "name": "websocket_server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "express": "^4.17.1",
-    "socket.io": "^4.2.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/YasmaniRodriguez/websocket_server.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/YasmaniRodriguez/websocket_server/issues"
-  },
-  "homepage": "https://github.com/YasmaniRodriguez/websocket_server#readme"
+	"name": "websocket_server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"socket.io": "^4.2.0"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.14.8",
+		"@babel/core": "^7.15.0",
+		"@babel/node": "^7.14.9",
+		"@babel/preset-env": "^7.15.0"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"serve": "npx babel-node server.js",
+		"start": "nodemon --exec npm run serve"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/YasmaniRodriguez/websocket_server.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/YasmaniRodriguez/websocket_server/issues"
+	},
+	"homepage": "https://github.com/YasmaniRodriguez/websocket_server#readme"
 }
