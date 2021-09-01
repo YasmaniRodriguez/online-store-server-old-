@@ -1,9 +1,9 @@
-const express = require("express"),
-	server = express(),
-	http = require("http").Server(server),
-	io = require("socket.io")(http);
+const express = require("express");
+const server = express();
+const http = require("http").Server(server);
+const io = require("socket.io")(http);
 
-server.use(express.static("./public"));
+server.use(express.static(__dirname + "/public"));
 
 server.get("/", (req, res) => {
 	res.sendFile("index.html", { root: __dirname });
@@ -12,6 +12,9 @@ server.get("/", (req, res) => {
 http.listen(3000, () => console.log("SERVER ON"));
 
 io.on("connection", (socket) => {
-	console.log("Usuario conectado");
-	socket.emit("mi mensaje", "este es mi mensaje desde el servidor");
+	console.log("cliente conectado: " + socket.id);
+	socket.emit("saludo", "hola usuario");
+	socket.on("saludo", (data) => {
+		console.log(data);
+	});
 });

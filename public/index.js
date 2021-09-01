@@ -1,6 +1,6 @@
 const socket = io();
 
-socket.on("mi mensaje", (data) => {
-	alert(data);
-	socket.emit("notificacion", "mensaje recibido correctamente");
+socket.on("saludo", (data) => {
+	console.log(data);
+	socket.emit("saludo", "hola servidor");
 });
