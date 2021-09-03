@@ -1,16 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => {
-	const socket = io();
-	const inp = document.querySelector("#message");
-	socket.on("message", (data) => {
-		console.log(data);
-	});
-	socket.on("user_keyup", (data) => {
-		console.log(data);
-	});
-	inp.addEventListener("keyup", (e) => {
-		if (e.keyCode == 13) {
-			socket.emit("keyup", { value: e.target.value });
-			e.target.value = "";
-		}
-	});
+const socket = io();
+
+socket.on("products", (data) => {
+	console.log(data);
 });
+
+const addProduct = () => {
+	var product = {
+		name: document.getElementById("name").value,
+		description: document.getElementById("description").value,
+		price: document.getElementById("price").value,
+		image: document.getElementById("image").value,
+	};
+	socket.emit("new-product", product);
+};

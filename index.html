@@ -33,32 +33,37 @@
 		<div class="container z-depth-2">
 			<h1 class="center-align">Product Catalog</h1>
 			<div class="row center-align">
-				<form class="col s12">
+				<form class="col s12" onsubmit="addProduct()">
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="product_name" type="text" class="validate" />
-							<label for="product_name">Name</label>
+							<input id="name" type="text" name="name" class="validate" />
+							<label for="name">Name</label>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="product_description" type="text" class="validate" />
-							<label for="product_description">Measure</label>
+							<input
+								id="description"
+								type="text"
+								name="description"
+								class="validate"
+							/>
+							<label for="description">Description</label>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="product_price" type="text" class="validate" />
-							<label for="product_price">Price</label>
+							<input id="price" type="number" name="price" class="validate" />
+							<label for="price">Price</label>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="product_image" type="text" class="validate" />
-							<label for="product_image">Image</label>
+							<input id="image" type="text" name="image" class="validate" />
+							<label for="image">Image</label>
 						</div>
 					</div>
 					<div class="row">
@@ -67,7 +72,7 @@
 							type="submit"
 							name="action"
 							>Submit
-							<i class="material-icons right">send</i>
+							<i class="material-icons right">cloud_upload</i>
 						</button>
 					</div>
 				</form>
@@ -85,10 +90,9 @@
 							>1kg <br />
 							$69,00
 						</p>
-						<div class="secondary-content">
-							<a href="#!"><i class="material-icons">create</i></a>
-							<a href="#!"><i class="material-icons">delete</i></a>
-						</div>
+						<a class="secondary-content" href="#!"
+							><i class="material-icons">delete</i></a
+						>
 					</li>
 
 					<li class="collection-item avatar">
@@ -102,10 +106,9 @@
 							>1kg <br />
 							$199,00
 						</p>
-						<div class="secondary-content">
-							<a href="#!"><i class="material-icons">create</i></a>
-							<a href="#!"><i class="material-icons">delete</i></a>
-						</div>
+						<a class="secondary-content" href="#!"
+							><i class="material-icons">delete</i></a
+						>
 					</li>
 
 					<li class="collection-item avatar">
@@ -119,10 +122,9 @@
 							>1kg <br />
 							$139,00
 						</p>
-						<div class="secondary-content">
-							<a href="#!"><i class="material-icons">create</i></a>
-							<a href="#!"><i class="material-icons">delete</i></a>
-						</div>
+						<a class="secondary-content" href="#!"
+							><i class="material-icons">delete</i></a
+						>
 					</li>
 				</ul>
 			</div>
