@@ -20,14 +20,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="client.js"></script>
-		<!-- Include Handlebars from a CDN -->
-		<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-		<script>
-			// compile the template
-			var template = Handlebars.compile("Handlebars <b>{{doesWhat}}</b>");
-			// execute the compiled template and print the output to the console
-			console.log(template({ doesWhat: "rocks!" }));
-		</script>
 	</head>
 	<body>
 		<div class="container z-depth-2">
@@ -78,55 +70,7 @@
 				</form>
 			</div>
 			<div>
-				<ul class="collection">
-					<li class="collection-item avatar">
-						<img
-							src="https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_laranja-256.png"
-							alt=""
-							class="circle"
-						/>
-						<span class="title">Naranja de Ombligo</span>
-						<p
-							>1kg <br />
-							$69,00
-						</p>
-						<a class="secondary-content" href="#!"
-							><i class="material-icons">delete</i></a
-						>
-					</li>
-
-					<li class="collection-item avatar">
-						<img
-							src="https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_maca-256.png"
-							alt=""
-							class="circle"
-						/>
-						<span class="title">Manzanas Red Delicious</span>
-						<p
-							>1kg <br />
-							$199,00
-						</p>
-						<a class="secondary-content" href="#!"
-							><i class="material-icons">delete</i></a
-						>
-					</li>
-
-					<li class="collection-item avatar">
-						<img
-							src="https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_banana-256.png"
-							alt=""
-							class="circle"
-						/>
-						<span class="title">Banana Cavendish</span>
-						<p
-							>1kg <br />
-							$139,00
-						</p>
-						<a class="secondary-content" href="#!"
-							><i class="material-icons">delete</i></a
-						>
-					</li>
-				</ul>
+				<ul class="collection" id="products"> </ul>
 			</div>
 		</div>
 	</body>
