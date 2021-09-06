@@ -33,7 +33,7 @@
 		<div class="container z-depth-2">
 			<h1 class="center-align">Product Catalog</h1>
 			<div class="row center-align">
-				<form class="col s12" onsubmit="addProduct()">
+				<form class="col s12" onsubmit="newProduct()">
 					<div class="row">
 						<div class="input-field col s12">
 							<input id="name" type="text" name="name" class="validate" />
@@ -96,15 +96,32 @@
 		<div id="chat" class="modal bottom-sheet">
 			<div class="modal-content">
 				<h4>Posts</h4>
-				<div id="messages"></div>
+				<div>
+					<ul id="messages"> </ul>
+				</div>
 			</div>
 			<div class="modal-footer">
-				<input type="text" placeholder="your_name@gmail.com" />
-				<input type="text" placeholder="your message..." />
-				<button class="btn waves-effect waves-light" type="submit" name="action"
-					>Submit
-					<i class="material-icons right">send</i>
-				</button>
+				<form onsubmit="addMessage()">
+					<input
+						id="email"
+						type="text"
+						name="email"
+						placeholder="your_name@gmail.com"
+					/>
+					<input
+						id="message"
+						type="text"
+						name="message"
+						placeholder="your message..."
+					/>
+					<button
+						class="btn waves-effect waves-light"
+						type="submit"
+						name="action"
+						>Submit
+						<i class="material-icons right">send</i>
+					</button>
+				</form>
 			</div>
 		</div>
 	</body>
