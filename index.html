@@ -33,7 +33,7 @@
 		<div class="container z-depth-2">
 			<h1 class="center-align">Product Catalog</h1>
 			<div class="row center-align">
-				<form class="col s12" onsubmit="newProduct()">
+				<form class="col s12" onsubmit="return newProduct(this)">
 					<div class="row">
 						<div class="input-field col s12">
 							<input id="name" type="text" name="name" class="validate" />
@@ -88,25 +88,25 @@
 					btn btn-floating btn-large
 					modal-trigger
 				"
-				href="#chat"
+				href="#messenger"
 				><i class="material-icons">chat</i></a
 			>
 		</div>
 
-		<div id="chat" class="modal bottom-sheet">
+		<div id="messenger" class="modal bottom-sheet">
 			<div class="modal-content">
-				<h4>Posts</h4>
-				<div>
+				<h4>Messenger</h4>
+				<div id="messages-container">
 					<ul id="messages"> </ul>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<form onsubmit="addMessage()">
+				<form id="messenger-form" onsubmit="return newMessage(this)">
 					<input
 						id="email"
 						type="text"
 						name="email"
-						placeholder="your_name@gmail.com"
+						placeholder="alias@gmail.com"
 					/>
 					<input
 						id="message"

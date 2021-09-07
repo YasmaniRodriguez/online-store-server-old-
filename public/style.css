@@ -1,7 +1,50 @@
-h1 {
+h1,
+h4 {
 	color: rgb(44, 168, 157);
+}
+
+#messenger {
+	overflow: hidden;
 }
 
 .modal {
 	height: 75% !important ;
+}
+
+.message-item {
+	display: flex;
+}
+
+.message-item :nth-child(1) {
+	color: blue;
+	font-weight: bold;
+}
+
+.message-item :nth-child(2) {
+	color: brown;
+}
+
+.message-item :nth-child(3) {
+	color: green;
+	font-style: italic;
+}
+
+#messages-container {
+	height: 15vh;
+	overflow-y: scroll;
+	background-color: gainsboro;
+}
+
+#messenger-form {
+	width: 100vw;
+	display: flex;
+	justify-content: space-around;
+	padding: 20px 20px;
+}
+
+#messenger-form > #email {
+	width: 20%;
+}
+#messenger-form > #message {
+	width: 70%;
 }

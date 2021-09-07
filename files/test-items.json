@@ -1,19 +1,19 @@
 [
 	{
 		"name": "Naranja de Ombligo",
-		"description": "Esta variedad de Naranja Navel ha adquirido este nombre de naranja de ombligo por aquello de forma redonda que sobresale de ella en la parte inferior de la fruta.",
+		"description": "Nombre adquirido por aquello de forma redonda que sobresale en la parte inferior de la fruta.",
 		"price": "69.00",
 		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_laranja-256.png"
 	},
 	{
 		"name": "Manzanas Red Delicious",
-		"description": "La 'Red Delicious' es un clon de cultivo de manzana, que ahora comprende más de 50 cultivares, reconocido por primera vez en el condado de Madison, Iowa, Estados Unidos, en 1872.",
+		"description": "Reconocido por primera vez en el condado de Madison, Iowa, Estados Unidos, en 1872.",
 		"price": "199.00",
 		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_maca-256.png"
 	},
 	{
 		"name": "Banana Cavendish",
-		"description": "La variedad de banana o plátano Cavendish se refiere a varios cultivares de banana que pertenecen al grupo de cultivares de banana AAA. Es una de las variedades de banana más famosa y cultivada.",
+		"description": "Es una de las variedades de banana más famosa y cultivada.",
 		"price": "139.00",
 		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_banana-256.png"
 	}

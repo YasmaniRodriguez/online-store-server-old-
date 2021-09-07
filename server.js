@@ -1,4 +1,5 @@
 import express from "express";
+import moment from "moment";
 
 const app = express();
 const server = require("http").Server(app);
@@ -6,16 +7,9 @@ const io = require("socket.io")(server);
 
 const port = 8080;
 const products = [];
+const messages = [];
 
-const Channel = require("./channel");
-
-const messages = new Channel("messages.json");
-
-// messages.viewMessage().then((data) => {
-// 	const conversation = data;
-// });
-
-// console.log(messages.viewMessage());
+const now = moment().format("DD/MM/YYYY HH:MM:SS");
 
 app.use(express.static(__dirname + "/public"));
 
@@ -25,10 +19,19 @@ app.get("/", (req, res) => {
 
 io.on("connection", (socket) => {
 	console.log(`connection_identifier: ${socket.id}`);
+
 	socket.emit("products", products);
-	socket.on("newProduct", (data) => {
+	socket.emit("messages", messages);
+
+	socket.on("new-product", (data) => {
 		products.push(data);
 		io.emit("products", products);
+	});
+
+	socket.on("new-message", (data) => {
+		console.log(data);
+		messages.push({ email: data.user, datetime: now, message: data.text });
+		io.emit("messages", messages);
 	});
 });
 
