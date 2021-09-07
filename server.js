@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import moment from "moment";
 import fs from "fs";
 
@@ -8,7 +8,8 @@ const io = require("socket.io")(server);
 
 const port = 8080;
 const products = [];
-const messages = [];
+const channel = "./data/channel.json";
+const messages = getMessage();
 
 const now = moment().format("DD/MM/YYYY HH:MM:SS");
 
@@ -35,9 +36,8 @@ io.on("connection", (socket) => {
 			datetime: now,
 			message: data.text,
 		};
-		messages.push(message);
+		addMessage(message);
 		io.emit("messages", messages);
-		//addMessage(message);
 	});
 });
 
@@ -50,16 +50,30 @@ server
 	);
 
 function addMessage(message) {
-	fs.promises.readFile("./messages.json").then((content) => {
-		let json = JSON.parse(content.toString("utf-8"));
-		json.push(message);
-		fs.promises.writeFile("./messages.json", JSON.stringify(json, null, "\t"));
-	});
+	try {
+		const data = fs.readFileSync(channel);
+		const json = JSON.parse(data.toString("utf-8"));
+		json.push({ ...message });
+		fs.writeFileSync(channel, JSON.stringify(json, null, "\t"));
+	} catch {
+		try {
+			fs.writeFileSync(channel, JSON.stringify([{ ...message }]));
+		} catch (err) {
+			throw new Error(err);
+		}
+	}
 }
 
 function getMessage() {
-	fs.promises.readFile("./messages.json").then((content) => {
-		let json = JSON.parse(content.toString("utf-8"));
+	try {
+		const data = fs.readFileSync(channel, "utf-8");
+		const json = JSON.parse(data.toString("utf-8"));
 		return json;
-	});
+	} catch {
+		try {
+			fs.writeFileSync(channel, JSON.stringify([]));
+		} catch (err) {
+			throw new Error(err);
+		}
+	}
 }
