@@ -5,8 +5,9 @@ socket.on("products", (data) => {
 });
 
 const renderProduct = (data) => {
-	var html = data.map((product, index) => {
-		return `<li class="collection-item avatar">
+	var html = data
+		.map((product, index) => {
+			return `<li class="collection-item avatar">
 					<img
 						src=${product.image}
 						alt=""
@@ -21,7 +22,8 @@ const renderProduct = (data) => {
 						><i class="material-icons">delete</i></a
 					>
 				</li>`;
-	});
+		})
+		.join(" ");
 	document.getElementById("products").innerHTML = html;
 };
 

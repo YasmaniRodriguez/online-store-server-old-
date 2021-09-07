@@ -1,4 +1,4 @@
-import express, { json } from "express";
+import express from "express";
 import moment from "moment";
 import fs from "fs";
 
@@ -8,7 +8,7 @@ const io = require("socket.io")(server);
 
 const port = 8080;
 const products = [];
-const channel = "./data/channel.json";
+const channel = "./channel.json";
 const messages = getMessage();
 
 const now = moment().format("DD/MM/YYYY HH:MM:SS");
