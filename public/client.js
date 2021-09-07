@@ -37,27 +37,36 @@ const newProduct = () => {
 
 //////////////////////////////////////////////
 
-// socket.on("messages", (data) => {
-// 	renderMessage(data);
-// });
+socket.on("messages", (data) => {
+	renderMessage(data);
+});
 
-// const renderMessage = (data) => {
-// 	var html = data.map((message, index) => {
-// 		return `<li class="message-item">
-// 					<p>${message.email}</p>
-// 					<p>[${message.datetime}]:</p>
-// 					<p>${message.message}</p>
-// 				</li>`;
-// 	});
-// 	document.getElementById("messages").innerHTML = html;
-// };
+const renderMessage = (data) => {
+	var html = data
+		.map((message) => {
+			return `<li class="message-item">
+						<p>${message.nickname}</p>
+						<p>[${message.datetime}]:</p>
+						<p>${message.message}</p>
+					</li>`;
+		})
+		.join(" ");
+	document.getElementById("messages").innerHTML = html;
+};
 
-// const newMessage = (e) => {
-// 	e.preventDefault();
-// 	var message = {
-// 		user: document.getElementById("email").value,
-// 		text: document.getElementById("message").value,
-// 	};
-// 	socket.emit("add-new-message", message);
-// 	return false;
-// };
+const newMessage = () => {
+	var message = {
+		nickname: document.getElementById("nickname").value,
+		text: document.getElementById("message").value,
+	};
+	socket.emit("new-message", message);
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+	let myBtn = document.getElementById("myBtn");
+	let myNickName = document.getElementById("nickname");
+	myBtn.disabled = true;
+	myNickName.onchange = function () {
+		myNickName.value ? (myBtn.disabled = false) : (myBtn.disabled = true);
+	};
+});

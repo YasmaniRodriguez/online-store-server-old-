@@ -30,7 +30,11 @@ io.on("connection", (socket) => {
 
 	socket.on("new-message", (data) => {
 		console.log(data);
-		messages.push({ email: data.user, datetime: now, message: data.text });
+		messages.push({
+			nickname: data.nickname,
+			datetime: now,
+			message: data.text,
+		});
 		io.emit("messages", messages);
 	});
 });

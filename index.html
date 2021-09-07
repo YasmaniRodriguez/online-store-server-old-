@@ -97,16 +97,16 @@
 			<div class="modal-content">
 				<h4>Messenger</h4>
 				<div id="messages-container">
-					<ul id="messages"> </ul>
+					<ul id="messages"></ul>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<form id="messenger-form" onsubmit="return newMessage(this)">
 					<input
-						id="email"
+						id="nickname"
 						type="text"
-						name="email"
-						placeholder="alias@gmail.com"
+						name="nickname"
+						placeholder="nickname@gmail.com"
 					/>
 					<input
 						id="message"
@@ -115,6 +115,7 @@
 						placeholder="your message..."
 					/>
 					<button
+						id="myBtn"
 						class="btn waves-effect waves-light"
 						type="submit"
 						name="action"
