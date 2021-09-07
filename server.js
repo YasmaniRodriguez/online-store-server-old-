@@ -1,5 +1,6 @@
 import express from "express";
 import moment from "moment";
+import fs from "fs";
 
 const app = express();
 const server = require("http").Server(app);
@@ -29,13 +30,14 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("new-message", (data) => {
-		console.log(data);
-		messages.push({
+		let message = {
 			nickname: data.nickname,
 			datetime: now,
 			message: data.text,
-		});
+		};
+		messages.push(message);
 		io.emit("messages", messages);
+		//addMessage(message);
 	});
 });
 
@@ -46,3 +48,18 @@ server
 	.on("error", (error) =>
 		console.log(`something is preventing us grow , more detail in: ${error}`)
 	);
+
+function addMessage(message) {
+	fs.promises.readFile("./messages.json").then((content) => {
+		let json = JSON.parse(content.toString("utf-8"));
+		json.push(message);
+		fs.promises.writeFile("./messages.json", JSON.stringify(json, null, "\t"));
+	});
+}
+
+function getMessage() {
+	fs.promises.readFile("./messages.json").then((content) => {
+		let json = JSON.parse(content.toString("utf-8"));
+		return json;
+	});
+}
