@@ -7,7 +7,8 @@
 		"cors": "^2.8.5",
 		"express": "^4.17.1",
 		"moment": "^2.29.1",
-		"socket.io": "^4.2.0"
+		"socket.io": "^4.2.0",
+		"typescript": "^4.4.2"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.14.8",
@@ -18,13 +19,15 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"serve": "npx babel-node server.js",
-		"start": "nodemon --exec npm run serve"
+		"start": "nodemon --exec npm run serve",
+		"ServerES6toJS5": ".\\node_modules\\.bin\\babel ./server.es6.js -o ./server.js -w",
+		"ServerTStoJS5": ".\\node_modules\\.bin\\tsc ./server.ts -w"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/YasmaniRodriguez/websocket_server.git"
 	},
-	"author": "",
+	"author": "rodriguez yasmani",
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/YasmaniRodriguez/websocket_server/issues"
