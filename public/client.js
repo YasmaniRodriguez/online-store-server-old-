@@ -49,7 +49,7 @@ const renderMessage = (data) => {
 			return `<li class="message-item">
 						<p>${message.nickname}</p>
 						<p>[${message.datetime}]:</p>
-						<p>${message.message}</p>
+						<p>${message.spoke}</p>
 					</li>`;
 		})
 		.join(" ");
@@ -59,7 +59,7 @@ const renderMessage = (data) => {
 const newMessage = () => {
 	var message = {
 		nickname: document.getElementById("nickname").value,
-		text: document.getElementById("message").value,
+		spoke: document.getElementById("message").value,
 	};
 	socket.emit("new-message", message);
 };
