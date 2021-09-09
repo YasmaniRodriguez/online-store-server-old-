@@ -23,7 +23,7 @@ DELETE FROM items
 
 UPDATE items 
   SET stock = 45 
-  WHERE id = 1;
+  WHERE id = 2;
 
 SELECT * 
   FROM items;
