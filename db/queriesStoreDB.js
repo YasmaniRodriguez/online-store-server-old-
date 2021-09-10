@@ -12,13 +12,17 @@ const dbCreateSchema = () => {
 					table.decimal("price");
 					table.string("image");
 				})
-				.then(() => console.log("table created"))
+				.then(() =>
+					console.log("Congrats, Store DB Schema is created successfully!")
+				)
 				.catch((err) => {
 					console.log(err);
 				})
 				.finally(() => {
 					db.destroy();
 				});
+		} else {
+			console.log("Fantastic, Store DB Schema already exists!");
 		}
 	});
 };
