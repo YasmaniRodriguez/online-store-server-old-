@@ -20,6 +20,10 @@ const channel = "./channel.json";
 const messages = getMessage();
 const now = moment().format("DD/MM/YYYY HH:MM:SS");
 
+const schema = require("./queriesStoreDB");
+
+schema.dbCreateSchema();
+
 function addMessage(message: {
 	nickname: string;
 	datetime: string;
