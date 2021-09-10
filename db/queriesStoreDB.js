@@ -1,4 +1,4 @@
-const { mysql } = require("./settings");
+const { mysql } = require("./odbc");
 const db = require("knex")(mysql);
 
 const dbCreateSchema = () => {

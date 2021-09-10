@@ -12,7 +12,7 @@ const channel = "./channel.json";
 const messages = getMessage();
 const now = moment().format("DD/MM/YYYY HH:MM:SS");
 
-const schema = require("./queriesStoreDB");
+const schema = require("./db/queriesStoreDB");
 
 schema.dbCreateSchema();
 
