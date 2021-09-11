@@ -12,7 +12,7 @@ const mysql = {
 const sqlite = {
 	client: "sqlite3",
 	connection: {
-		filename: "./db/messages.sqlite",
+		filename: "./db/chat.sqlite",
 	},
 	useNullAsDefault: true,
 };

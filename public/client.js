@@ -47,9 +47,9 @@ const renderMessage = (data) => {
 	var html = data
 		.map((message) => {
 			return `<li class="message-item">
-						<p>${message.nickname}</p>
+						<p>${message.alias}</p>
 						<p>[${message.datetime}]:</p>
-						<p>${message.spoke}</p>
+						<p>${message.message}</p>
 					</li>`;
 		})
 		.join(" ");
@@ -57,18 +57,19 @@ const renderMessage = (data) => {
 };
 
 const newMessage = () => {
-	var message = {
-		nickname: document.getElementById("nickname").value,
-		spoke: document.getElementById("message").value,
+	let message = {
+		alias: document.getElementById("alias").value,
+		message: document.getElementById("message").value,
 	};
+	console.log(message);
 	socket.emit("new-message", message);
 };
 
 document.addEventListener("DOMContentLoaded", function () {
 	let myBtn = document.getElementById("myBtn");
-	let myNickName = document.getElementById("nickname");
+	let myAlias = document.getElementById("alias");
 	myBtn.disabled = true;
-	myNickName.onchange = function () {
-		myNickName.value ? (myBtn.disabled = false) : (myBtn.disabled = true);
+	myAlias.onchange = function () {
+		myAlias.value ? (myBtn.disabled = false) : (myBtn.disabled = true);
 	};
 });
