@@ -5,7 +5,7 @@ socket.on("products", (data) => {
 });
 
 const renderProduct = (data) => {
-	var html = data
+	let html = data
 		.map((product, index) => {
 			return `<li class="collection-item avatar">
 					<img
@@ -28,7 +28,7 @@ const renderProduct = (data) => {
 };
 
 const newProduct = () => {
-	var product = {
+	let product = {
 		name: document.getElementById("name").value,
 		description: document.getElementById("description").value,
 		price: document.getElementById("price").value,
@@ -44,7 +44,7 @@ socket.on("messages", (data) => {
 });
 
 const renderMessage = (data) => {
-	var html = data
+	let html = data
 		.map((message) => {
 			return `<li class="message-item">
 						<p>${message.alias}</p>

@@ -8,7 +8,6 @@ const port = 8080;
 
 const server_time = moment().format("DD/MM/YYYY HH:MM:SS");
 const products = [];
-const messages = [];
 ///////////////////////////////////////////////////////////////
 app.use(express.static(__dirname + "/public"));
 
@@ -20,7 +19,7 @@ io.on("connection", (socket) => {
 	console.log(`connection_identifier: ${socket.id}`);
 
 	socket.emit("products", products);
-	socket.emit("messages", messages);
+	getMessages();
 
 	socket.on("new-product", (product) => {
 		products.push(product);
@@ -29,8 +28,7 @@ io.on("connection", (socket) => {
 
 	socket.on("new-message", (message) => {
 		addMessage({ ...message, datetime: server_time });
-		getMessage();
-		io.emit("messages", messages);
+		getMessages();
 	});
 });
 
@@ -115,17 +113,16 @@ const addMessage = (message) => {
 		});
 };
 
-const getMessage = () => {
+const getMessages = () => {
 	chat
 		.from("messages")
 		.select("alias", "datetime", "message")
 		.orderBy("id")
 		.then((rows) => {
-			rows.map((message) => messages.push(message));
+			io.emit("messages", rows);
 		})
 		.catch((err) => {
 			console.log(err);
 		});
 };
-
 ///////////////////////////////////////////////////////////////
