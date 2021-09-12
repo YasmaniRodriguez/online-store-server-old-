@@ -1,5 +1,5 @@
 {
-	"name": "websocket_server",
+	"name": "online-store-webserver",
 	"version": "1.0.0",
 	"description": "",
 	"main": "server.js",
