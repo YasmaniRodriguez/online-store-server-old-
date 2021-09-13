@@ -1,38 +1,36 @@
 import express from "express";
 import moment from "moment";
 
-const app = express();
-const server = require("http").Server(app);
-const io = require("socket.io")(server);
-const port = 8080;
+const server = express();
+const http = require("http").Server(server);
+const io = require("socket.io")(http);
+const port = process.env.PORT || 8080;
+const productEndPoint = require("./routes/products");
+const cartEndPoint = require("./routes/cart");
 
-const server_time = moment().format("DD/MM/YYYY HH:MM:SS");
-const products = [];
+const timestamp = moment().format();
+
 ///////////////////////////////////////////////////////////////
-app.use(express.static(__dirname + "/public"));
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+server.use(express.static(__dirname + "/public"));
+server.use("/endpoint", productEndPoint);
+server.use("/endpoint", cartEndPoint);
 
-app.get("/", (req, res) => {
-	res.status(200).sendFile("index.html", { root: __dirname });
+server.get("/", (req, res) => {
+	res.status(200).sendFile("index.html", { root: __dirname + "/public" });
 });
 
 io.on("connection", (socket) => {
 	console.log(`connection_identifier: ${socket.id}`);
-
-	socket.emit("products", products);
 	getMessages();
-
-	socket.on("new-product", (product) => {
-		products.push(product);
-		io.emit("products", products);
-	});
-
 	socket.on("new-message", (message) => {
-		addMessage({ ...message, datetime: server_time });
+		addMessage({ ...message, datetime: timestamp });
 		getMessages();
 	});
 });
 
-server
+http
 	.listen(port, () => {
 		console.log(`magic is happening in http://localhost:${port}`);
 	})
