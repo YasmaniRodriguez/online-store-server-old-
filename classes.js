@@ -1,7 +1,7 @@
 class Item {
 	constructor(id, code, name, description, image, price, stock, timestamp) {
 		this.id = id;
-		this.name = code;
+		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.image = image;
