@@ -1,7 +1,8 @@
 import express from "express";
 const router = express.Router();
 
-const myClass = require("../classes.js");
+const classes = require("../classes.js");
+const functions = require("../functions.js");
 
 var products = [];
 
@@ -14,7 +15,7 @@ router.get("/products", (req, res) => {
 		.then((result) => {
 			result.length === 0
 				? res.json({ error: "there is not products" })
-				: res.render("table", { products: result });
+				: res.json({ products: result });
 		})
 		.catch((error) => res.json(error));
 });
@@ -28,29 +29,35 @@ router.get("/products/:id", (req, res) => {
 		.then((result) => {
 			result === undefined
 				? res.json({ error: "product was not found" })
-				: res.render("card", result);
+				: res.json({ ...result });
 		})
 		.catch((error) => res.json(error));
 });
 
 //add product
 router.post("/products", (req, res) => {
-	const { name, description, price, image } = req.body;
+	console.log("agregando producto");
+	const { code, name, description, image, price, stock } = req.body;
 	const myPromise = new Promise((resolve, reject) => {
 		resolve(
 			products.push(
-				new myClass.Product(
+				new classes.Item(
 					products.length + 1,
+					code,
 					name,
 					description,
+					image,
 					price,
-					image
+					stock,
+					functions.timestamp
 				)
 			)
 		);
 	});
 	myPromise
-		.then((result) => res.redirect("/"))
+		.then(() => {
+			res.json(req.body);
+		})
 		.catch((error) => res.json(error));
 });
 
@@ -64,12 +71,16 @@ router.put("/products/:id", (req, res) => {
 			if (result === undefined) {
 				res.json({ error: "product was not found" });
 			} else {
-				const { name, description, price, image } = req.body;
+				const { code, name, description, image, price, stock, timestamp } =
+					req.body;
 				//because send all parameters is not required:
+				code ? (result.code = code) : result.code;
 				name ? (result.name = name) : result.name;
 				name ? (result.description = description) : result.description;
-				price ? (result.price = price) : result.price;
 				image ? (result.image = image) : result.image;
+				price ? (result.price = price) : result.price;
+				stock ? (result.stock = stock) : result.stock;
+				timestamp ? (result.timestamp = timestamp) : result.timestamp;
 				res.json({ status: "OK", id: req.params.id, changes: req.body });
 			}
 		})

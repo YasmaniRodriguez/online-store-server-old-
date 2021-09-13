@@ -2,8 +2,6 @@
 
 var _express = _interopRequireDefault(require("express"));
 
-var _moment = _interopRequireDefault(require("moment"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
@@ -20,19 +18,20 @@ var io = require("socket.io")(http);
 
 var port = process.env.PORT || 8080;
 
-var productEndPoint = require("./routes/products");
+var products = require("./routes/products");
 
-var cartEndPoint = require("./routes/cart");
+var cart = require("./routes/cart");
 
-var timestamp = (0, _moment["default"])().format(); ///////////////////////////////////////////////////////////////
+var functions = require("./functions.js"); ///////////////////////////////////////////////////////////////
+
 
 server.use(_express["default"].json());
 server.use(_express["default"].urlencoded({
   extended: true
 }));
 server.use(_express["default"]["static"](__dirname + "/public"));
-server.use("/endpoint", productEndPoint);
-server.use("/endpoint", cartEndPoint);
+server.use("/endpoint", products);
+server.use("/endpoint", cart);
 server.get("/", function (req, res) {
   res.status(200).sendFile("index.html", {
     root: __dirname + "/public"
@@ -43,7 +42,7 @@ io.on("connection", function (socket) {
   getMessages();
   socket.on("new-message", function (message) {
     addMessage(_objectSpread(_objectSpread({}, message), {}, {
-      datetime: timestamp
+      datetime: functions.timestamp
     }));
     getMessages();
   });

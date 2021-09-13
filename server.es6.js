@@ -1,21 +1,20 @@
 import express from "express";
-import moment from "moment";
 
 const server = express();
 const http = require("http").Server(server);
 const io = require("socket.io")(http);
 const port = process.env.PORT || 8080;
-const productEndPoint = require("./routes/products");
-const cartEndPoint = require("./routes/cart");
+const products = require("./routes/products");
+const cart = require("./routes/cart");
 
-const timestamp = moment().format();
+const functions = require("./functions.js");
 
 ///////////////////////////////////////////////////////////////
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(__dirname + "/public"));
-server.use("/endpoint", productEndPoint);
-server.use("/endpoint", cartEndPoint);
+server.use("/endpoint", products);
+server.use("/endpoint", cart);
 
 server.get("/", (req, res) => {
 	res.status(200).sendFile("index.html", { root: __dirname + "/public" });
@@ -25,7 +24,7 @@ io.on("connection", (socket) => {
 	console.log(`connection_identifier: ${socket.id}`);
 	getMessages();
 	socket.on("new-message", (message) => {
-		addMessage({ ...message, datetime: timestamp });
+		addMessage({ ...message, datetime: functions.timestamp });
 		getMessages();
 	});
 });
