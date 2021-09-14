@@ -1,26 +1,28 @@
 import express from "express";
-
-const SERVER = express();
-const HTTP = require("http").Server(SERVER);
-const io = require("socket.io")(HTTP);
+const app = express();
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
 const PORT = process.env.PORT || 8080;
-const products = require("./routes/products");
-const cart = require("./routes/cart");
-
 const functions = require("./functions.js");
+const login = require("./routes/login.js");
+const verifyToken = require("./routes/validate-token.js");
+const products = require("./routes/products.js");
+const cart = require("./routes/cart.js");
+
 functions.create_table_products();
 functions.create_table_messages();
 
-SERVER.use(express.json());
-SERVER.use(express.urlencoded({ extended: true }));
-SERVER.use(express.static(__dirname + "/public"));
-SERVER.use("/endpoint", products);
-SERVER.use("/endpoint", cart);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
+app.use(login);
+app.use(verifyToken, products);
+app.use(verifyToken, cart);
 
-SERVER.get("/", (req, res) => {
-	res.status(200).sendFile("index.html", { root: __dirname + "/public" });
-});
-
+// app.get("/", (req, res) => {
+// 	res.status(200).sendFile("index.html", { root: __dirname + "/public" });
+// });
+/////////////////////////////////////////////////////////
 io.on("connection", (socket) => {
 	console.log(`connection_identifier: ${socket.id}`);
 	functions.getMessages
@@ -41,9 +43,11 @@ io.on("connection", (socket) => {
 			});
 	});
 });
-
-HTTP.listen(PORT, () => {
-	console.log(`magic is happening in http://localhost:${PORT}`);
-}).on("err", (err) =>
-	console.log(`something is preventing us grow , more detail in: ${err}`)
-);
+/////////////////////////////////////////////////////////
+server
+	.listen(PORT, () => {
+		console.log(`magic is happening in http://localhost:${PORT}`);
+	})
+	.on("err", (err) =>
+		console.log(`something is preventing us grow , more detail in: ${err}`)
+	);
