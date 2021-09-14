@@ -36,12 +36,17 @@ router.get("/cart/:id", (req, res) => {
 
 //add product
 router.post("/cart", (req, res) => {
-	const { product, quantity, amount } = req.body;
+	const { product, quantity } = req.body;
 	const myPromise = new Promise((resolve, reject) => {
 		resolve(
 			cart.push(
-				new classes.CartItem(cart.length + 1, product, functions.timestamp),
-				quantity()
+				new classes.CartItem(
+					cart.length + 1,
+					product,
+					quantity,
+					"null",
+					functions.timestamp
+				)
 			)
 		);
 	});

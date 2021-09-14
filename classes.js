@@ -12,22 +12,21 @@ class Item {
 }
 
 class CartItem {
-	constructor(id, product, quantity, amount, timestamp) {
+	constructor(id, product, quantity, timestamp) {
 		this.id = id;
 		this.product = product;
 		this.quantity = quantity;
-		this.amount = amount;
+		this.amount = this.calcAmount();
 		this.timestamp = timestamp;
 	}
-
-	set quantity(newQuantity) {
-		this.quantity;
-		this.amount(this.quantity * this.product.price);
+	calcAmount() {
+		return this.quantity * this.product.price;
 	}
 
-	set amount(newAmount) {
-		this.quantity = newAmount;
-	}
+	// set quantity(newQuantity) {
+	// 	this.quantity;
+	// 	this.amount(this.quantity * this.product.price);
+	// }
 }
 
 module.exports = { Item, CartItem };
