@@ -11,15 +11,18 @@ class Item {
 	}
 }
 
-class CartItem extends Item {
-	constructor(quantity, amount) {
-		this.product = quantity;
-		this.product = amount;
+class CartItem {
+	constructor(id, product, quantity, amount, timestamp) {
+		this.id = id;
+		this.product = product;
+		this.quantity = quantity;
+		this.amount = amount;
+		this.timestamp = timestamp;
 	}
 
 	set quantity(newQuantity) {
 		this.quantity;
-		this.amount();
+		this.amount(this.quantity * this.product.price);
 	}
 
 	set amount(newAmount) {
