@@ -1,18 +1,18 @@
 import express from "express";
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const settings = require("../settings/config.js");
+const settings = require("../settings/keys.js");
 
 const users = [
 	{
 		username: "root",
 		password: "password123root",
-		role: "root",
+		role: "owner",
 	},
 	{
 		username: "guest",
 		password: "password123guest",
-		role: "guest",
+		role: "customer",
 	},
 ];
 

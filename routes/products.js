@@ -36,75 +36,95 @@ router.get("/products/:id", (req, res) => {
 
 //add product
 router.post("/products", (req, res) => {
-	console.log("agregando producto");
-	const { code, name, description, image, price, stock } = req.body;
-	const myPromise = new Promise((resolve, reject) => {
-		resolve(
-			products.push(
-				new classes.Item(
-					products.length + 1,
-					code,
-					name,
-					description,
-					image,
-					price,
-					stock,
-					functions.timestamp
+	const { role } = req.user;
+	if (role !== "owner") {
+		return res
+			.status(403)
+			.json({ error: "user don't have required permissions" });
+	} else {
+		const { code, name, description, image, price, stock } = req.body;
+		const myPromise = new Promise((resolve, reject) => {
+			resolve(
+				products.push(
+					new classes.Item(
+						products.length + 1,
+						code,
+						name,
+						description,
+						image,
+						price,
+						stock,
+						functions.timestamp
+					)
 				)
-			)
-		);
-	});
-	myPromise
-		.then(() => {
-			res.json(req.body);
-		})
-		.catch((error) => res.json(error));
+			);
+		});
+		myPromise
+			.then(() => {
+				res.json(req.body);
+			})
+			.catch((error) => res.json(error));
+	}
 });
 
 //update product by id
 router.put("/products/:id", (req, res) => {
-	const myPromise = new Promise((resolve, reject) => {
-		resolve(products.find((product) => product.id == req.params.id));
-	});
-	myPromise
-		.then((result) => {
-			if (result === undefined) {
-				res.json({ error: "product was not found" });
-			} else {
-				const { code, name, description, image, price, stock, timestamp } =
-					req.body;
-				//because send all parameters is not required:
-				code ? (result.code = code) : result.code;
-				name ? (result.name = name) : result.name;
-				name ? (result.description = description) : result.description;
-				image ? (result.image = image) : result.image;
-				price ? (result.price = price) : result.price;
-				stock ? (result.stock = stock) : result.stock;
-				timestamp ? (result.timestamp = timestamp) : result.timestamp;
-				res.json({ status: "OK", id: req.params.id, changes: req.body });
-			}
-		})
-		.catch((error) => res.json(error));
+	const { role } = req.user;
+	if (role !== "owner") {
+		return res
+			.status(403)
+			.json({ error: "user don't have required permissions" });
+	} else {
+		const myPromise = new Promise((resolve, reject) => {
+			resolve(products.find((product) => product.id == req.params.id));
+		});
+		myPromise
+			.then((result) => {
+				if (result === undefined) {
+					res.json({ error: "product was not found" });
+				} else {
+					const { code, name, description, image, price, stock, timestamp } =
+						req.body;
+					//because send all parameters is not required:
+					code ? (result.code = code) : result.code;
+					name ? (result.name = name) : result.name;
+					name ? (result.description = description) : result.description;
+					image ? (result.image = image) : result.image;
+					price ? (result.price = price) : result.price;
+					stock ? (result.stock = stock) : result.stock;
+					timestamp ? (result.timestamp = timestamp) : result.timestamp;
+					res.json({ status: "OK", id: req.params.id, changes: req.body });
+				}
+			})
+			.catch((error) => res.json(error));
+	}
 });
 
 //delete product
 router.delete("/products/:id", (req, res) => {
-	const myPromise = new Promise((resolve, reject) => {
-		resolve(products.find((product) => product.id == req.params.id));
-	});
-	myPromise
-		.then((result) => {
-			if (result === undefined) {
-				res.json({ error: "product was not found" });
-			} else {
-				let i = products.indexOf(result);
-				if (i !== -1) {
-					products.splice(i, 1);
+	const { role } = req.user;
+	if (role !== "owner") {
+		return res
+			.status(403)
+			.json({ error: "user don't have required permissions" });
+	} else {
+		const myPromise = new Promise((resolve, reject) => {
+			resolve(products.find((product) => product.id == req.params.id));
+		});
+		myPromise
+			.then((result) => {
+				if (result === undefined) {
+					res.json({ error: "product was not found" });
+				} else {
+					let i = products.indexOf(result);
+					if (i !== -1) {
+						products.splice(i, 1);
+					}
+					res.json({ status: "OK", id: req.params.id, product: result });
 				}
-				res.json({ status: "OK", id: req.params.id, product: result });
-			}
-		})
-		.catch((error) => res.json(error));
+			})
+			.catch((error) => res.json(error));
+	}
 });
 
 module.exports = router;

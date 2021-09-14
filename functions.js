@@ -1,6 +1,6 @@
 import moment from "moment";
 
-const { mysql, sqlite } = require("./odbc");
+const { mysql, sqlite } = require("./settings/odbc.js");
 const store = require("knex")(mysql);
 const chat = require("knex")(sqlite);
 
