@@ -23,10 +23,10 @@ class CartItem {
 		return this.quantity * this.product.price;
 	}
 
-	// set quantity(newQuantity) {
-	// 	this.quantity;
-	// 	this.amount(this.quantity * this.product.price);
-	// }
+	setQuantity(newQuantity) {
+		this.quantity = newQuantity;
+		this.amount(this.quantity * this.product.price);
+	}
 }
 
 module.exports = { Item, CartItem };
