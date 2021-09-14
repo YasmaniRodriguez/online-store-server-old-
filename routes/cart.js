@@ -68,8 +68,7 @@ router.put("/cart/:id", (req, res) => {
 				res.json({ error: "this product is not in the cart" });
 			} else {
 				const { quantity } = req.body;
-				//because send all parameters is not required:
-				result.quantity(quantity);
+				result.setQuantity(quantity);
 				res.json({ status: "OK", id: req.params.id, changes: req.body });
 			}
 		})
