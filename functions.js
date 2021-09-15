@@ -119,7 +119,17 @@ const update_one_products = (record, fields) => {
 		});
 };
 
-const delete_one_products = () => {};
+const delete_one_products = (record) => {
+	store("products")
+		.where("id", record)
+		.del()
+		.then(() => {
+			console.log("product removed");
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
 
 module.exports = {
 	timestamp,

@@ -4,8 +4,6 @@ const router = express.Router();
 const classes = require("../classes.js");
 const functions = require("../functions.js");
 
-var products = [];
-
 //get all products
 router.get("/products", (req, res) => {
 	const myPromise = new Promise((resolve, reject) => {
@@ -57,7 +55,7 @@ router.post("/products", (req, res) => {
 		});
 		myPromise
 			.then(() => {
-				res.json(req.body);
+				res.json({ message: "product uploaded" });
 			})
 			.catch((error) => res.json(error));
 	}
@@ -78,7 +76,7 @@ router.put("/products/:id", (req, res) => {
 		});
 		myPromise
 			.then(() => {
-				res.json(req.body);
+				res.json({ message: "product updated" });
 			})
 			.catch((error) => res.json(error));
 	}
@@ -93,19 +91,12 @@ router.delete("/products/:id", (req, res) => {
 			.json({ error: "user don't have required permissions" });
 	} else {
 		const myPromise = new Promise((resolve, reject) => {
-			resolve(products.find((product) => product.id == req.params.id));
+			const record = req.params.id;
+			resolve(functions.delete_one_products(record));
 		});
 		myPromise
-			.then((result) => {
-				if (result === undefined) {
-					res.json({ error: "product was not found" });
-				} else {
-					let i = products.indexOf(result);
-					if (i !== -1) {
-						products.splice(i, 1);
-					}
-					res.json({ status: "OK", id: req.params.id, product: result });
-				}
+			.then(() => {
+				res.json({ message: "product removed" });
 			})
 			.catch((error) => res.json(error));
 	}
