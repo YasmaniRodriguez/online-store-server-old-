@@ -82,10 +82,54 @@ const getMessages = chat
 	.select("alias", "datetime", "message")
 	.from("messages");
 
+const select_all_products = store.select().from("products");
+const select_one_products = (product) => {
+	return store("products").where("id", product).select();
+};
+const insert_into_products = (product) => {
+	store
+		.insert([
+			{
+				code: product.code,
+				name: product.name,
+				description: product.description,
+				image: product.image,
+				price: product.price,
+				stock: product.stock,
+				timestamp: product.timestamp,
+			},
+		])
+		.into("products")
+		.then(() => {
+			console.log("product uploaded");
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+const update_one_products = (record, fields) => {
+	store("products")
+		.where("id", record)
+		.update(fields)
+		.then(() => {
+			console.log("product updated");
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+
+const delete_one_products = () => {};
+
 module.exports = {
 	timestamp,
 	create_table_products,
 	create_table_messages,
 	addMessage,
 	getMessages,
+	select_all_products,
+	select_one_products,
+	insert_into_products,
+	update_one_products,
+	delete_one_products,
 };

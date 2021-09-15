@@ -9,7 +9,7 @@ var products = [];
 //get all products
 router.get("/products", (req, res) => {
 	const myPromise = new Promise((resolve, reject) => {
-		resolve(products);
+		resolve(functions.select_all_products);
 	});
 	myPromise
 		.then((result) => {
@@ -23,7 +23,7 @@ router.get("/products", (req, res) => {
 //get product by id
 router.get("/products/:id", (req, res) => {
 	const myPromise = new Promise((resolve, reject) => {
-		resolve(products.find((product) => product.id == req.params.id));
+		resolve(functions.select_one_products(req.params.id));
 	});
 	myPromise
 		.then((result) => {
@@ -43,21 +43,17 @@ router.post("/products", (req, res) => {
 			.json({ error: "user don't have required permissions" });
 	} else {
 		const { code, name, description, image, price, stock } = req.body;
+		const product = new classes.Item(
+			code,
+			name,
+			description,
+			image,
+			price,
+			stock,
+			functions.timestamp
+		);
 		const myPromise = new Promise((resolve, reject) => {
-			resolve(
-				products.push(
-					new classes.Item(
-						products.length + 1,
-						code,
-						name,
-						description,
-						image,
-						price,
-						stock,
-						functions.timestamp
-					)
-				)
-			);
+			resolve(functions.insert_into_products(product));
 		});
 		myPromise
 			.then(() => {
@@ -76,25 +72,13 @@ router.put("/products/:id", (req, res) => {
 			.json({ error: "user don't have required permissions" });
 	} else {
 		const myPromise = new Promise((resolve, reject) => {
-			resolve(products.find((product) => product.id == req.params.id));
+			const record = req.params.id;
+			const fields = req.body;
+			resolve(functions.update_one_products(record, fields));
 		});
 		myPromise
-			.then((result) => {
-				if (result === undefined) {
-					res.json({ error: "product was not found" });
-				} else {
-					const { code, name, description, image, price, stock, timestamp } =
-						req.body;
-					//because send all parameters is not required:
-					code ? (result.code = code) : result.code;
-					name ? (result.name = name) : result.name;
-					name ? (result.description = description) : result.description;
-					image ? (result.image = image) : result.image;
-					price ? (result.price = price) : result.price;
-					stock ? (result.stock = stock) : result.stock;
-					timestamp ? (result.timestamp = timestamp) : result.timestamp;
-					res.json({ status: "OK", id: req.params.id, changes: req.body });
-				}
+			.then(() => {
+				res.json(req.body);
 			})
 			.catch((error) => res.json(error));
 	}

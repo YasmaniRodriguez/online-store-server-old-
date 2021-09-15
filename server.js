@@ -37,10 +37,12 @@ app.use(_express["default"].urlencoded({
 app.use(_express["default"]["static"](__dirname + "/public"));
 app.use(login);
 app.use(verifyToken, products);
-app.use(verifyToken, cart); // app.get("/", (req, res) => {
-// 	res.status(200).sendFile("index.html", { root: __dirname + "/public" });
-// });
-/////////////////////////////////////////////////////////
+app.use(verifyToken, cart);
+app.get("/", function (req, res) {
+  res.status(200).sendFile("index.html", {
+    root: __dirname + "/public"
+  });
+}); /////////////////////////////////////////////////////////
 
 io.on("connection", function (socket) {
   console.log("connection_identifier: ".concat(socket.id));

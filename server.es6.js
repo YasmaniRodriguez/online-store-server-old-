@@ -19,9 +19,9 @@ app.use(login);
 app.use(verifyToken, products);
 app.use(verifyToken, cart);
 
-// app.get("/", (req, res) => {
-// 	res.status(200).sendFile("index.html", { root: __dirname + "/public" });
-// });
+app.get("/", (req, res) => {
+	res.status(200).sendFile("index.html", { root: __dirname + "/public" });
+});
 /////////////////////////////////////////////////////////
 io.on("connection", (socket) => {
 	console.log(`connection_identifier: ${socket.id}`);
