@@ -3,6 +3,7 @@ const router = express.Router();
 
 const classes = require("../classes.js");
 const functions = require("../functions.js");
+const checkAuthority = require("./authorities.js");
 
 //get all products
 router.get("/products", (req, res) => {
@@ -33,73 +34,53 @@ router.get("/products/:id", (req, res) => {
 });
 
 //add product
-router.post("/products", (req, res) => {
-	const { role } = req.user;
-	if (role !== "owner") {
-		return res
-			.status(403)
-			.json({ error: "user don't have required permissions" });
-	} else {
-		const { code, name, description, image, price, stock } = req.body;
-		const product = new classes.Item(
-			code,
-			name,
-			description,
-			image,
-			price,
-			stock,
-			functions.timestamp
-		);
-		const myPromise = new Promise((resolve, reject) => {
-			resolve(functions.insert_into_products(product));
-		});
-		myPromise
-			.then(() => {
-				res.json({ message: "product uploaded" });
-			})
-			.catch((error) => res.json(error));
-	}
+router.post("/products", checkAuthority, (req, res) => {
+	const { code, name, category, description, image, price, stock } = req.body;
+	const product = new classes.Item(
+		code,
+		name,
+		category,
+		description,
+		image,
+		price,
+		stock,
+		functions.timestamp
+	);
+	const myPromise = new Promise((resolve, reject) => {
+		resolve(functions.insert_into_products(product));
+	});
+	myPromise
+		.then(() => {
+			res.json({ message: "product uploaded" });
+		})
+		.catch((error) => res.json(error));
 });
 
 //update product by id
-router.put("/products/:id", (req, res) => {
-	const { role } = req.user;
-	if (role !== "owner") {
-		return res
-			.status(403)
-			.json({ error: "user don't have required permissions" });
-	} else {
-		const myPromise = new Promise((resolve, reject) => {
-			const record = req.params.id;
-			const fields = req.body;
-			resolve(functions.update_one_products(record, fields));
-		});
-		myPromise
-			.then(() => {
-				res.json({ message: "product updated" });
-			})
-			.catch((error) => res.json(error));
-	}
+router.put("/products/:id", checkAuthority, (req, res) => {
+	const myPromise = new Promise((resolve, reject) => {
+		const record = req.params.id;
+		const fields = req.body;
+		resolve(functions.update_one_products(record, fields));
+	});
+	myPromise
+		.then(() => {
+			res.json({ message: "product updated" });
+		})
+		.catch((error) => res.json(error));
 });
 
 //delete product
-router.delete("/products/:id", (req, res) => {
-	const { role } = req.user;
-	if (role !== "owner") {
-		return res
-			.status(403)
-			.json({ error: "user don't have required permissions" });
-	} else {
-		const myPromise = new Promise((resolve, reject) => {
-			const record = req.params.id;
-			resolve(functions.delete_one_products(record));
-		});
-		myPromise
-			.then(() => {
-				res.json({ message: "product removed" });
-			})
-			.catch((error) => res.json(error));
-	}
+router.delete("/products/:id", checkAuthority, (req, res) => {
+	const myPromise = new Promise((resolve, reject) => {
+		const record = req.params.id;
+		resolve(functions.delete_one_products(record));
+	});
+	myPromise
+		.then(() => {
+			res.json({ message: "product removed" });
+		})
+		.catch((error) => res.json(error));
 });
 
 module.exports = router;

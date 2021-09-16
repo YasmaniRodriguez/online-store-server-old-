@@ -28,7 +28,7 @@ router.get("/cart/:id", (req, res) => {
 	myPromise
 		.then((result) => {
 			result === undefined
-				? res.json({ error: "this product is not in the cart" })
+				? res.json({ error: "product is not in the cart" })
 				: res.json({ ...result });
 		})
 		.catch((error) => res.json(error));
@@ -51,7 +51,7 @@ router.post("/cart", (req, res) => {
 					functions.timestamp
 				)
 			);
-			res.json({ message: "product uploaded" });
+			res.json({ message: "product was added to cart" });
 		})
 		.catch((error) => res.json(error));
 });
@@ -64,11 +64,11 @@ router.put("/cart/:id", (req, res) => {
 	myPromise
 		.then((result) => {
 			if (result === undefined) {
-				res.json({ error: "this product is not in the cart" });
+				res.json({ error: "product is not in the cart" });
 			} else {
 				const { quantity } = req.body;
 				result.setQuantity(quantity);
-				res.json({ message: "product updated" });
+				res.json({ message: "product quantity was updated" });
 			}
 		})
 		.catch((error) => res.json(error));
@@ -82,13 +82,13 @@ router.delete("/cart/:id", (req, res) => {
 	myPromise
 		.then((result) => {
 			if (result === undefined) {
-				res.json({ error: "this product is not in the cart" });
+				res.json({ error: "product is not in the cart" });
 			} else {
 				let i = cart.indexOf(result);
 				if (i !== -1) {
 					cart.splice(i, 1);
 				}
-				res.json({ message: "product removed" });
+				res.json({ message: "product was removed" });
 			}
 		})
 		.catch((error) => res.json(error));

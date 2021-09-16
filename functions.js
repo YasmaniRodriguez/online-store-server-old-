@@ -12,8 +12,9 @@ const create_table_products = () => {
 			return store.schema
 				.createTable("products", (table) => {
 					table.increments("id").primary();
-					table.string("code", 10);
+					table.string("code", 10).unique().notNullable();
 					table.string("name", 20);
+					table.string("category", 20);
 					table.string("description", 50);
 					table.string("image");
 					table.decimal("price");
@@ -92,6 +93,7 @@ const insert_into_products = (product) => {
 			{
 				code: product.code,
 				name: product.name,
+				category: product.category,
 				description: product.description,
 				image: product.image,
 				price: product.price,

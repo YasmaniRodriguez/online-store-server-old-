@@ -4,7 +4,7 @@ const server = require("http").Server(app);
 const io = require("socket.io")(server);
 const PORT = process.env.PORT || 8080;
 const functions = require("./functions.js");
-const login = require("./routes/login.js");
+const generateToken = require("./routes/generate-token.js");
 const verifyToken = require("./routes/validate-token.js");
 const products = require("./routes/products.js");
 const cart = require("./routes/cart.js");
@@ -15,7 +15,7 @@ functions.create_table_messages();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
-app.use(login);
+app.use(generateToken);
 app.use(verifyToken, products);
 app.use(verifyToken, cart);
 

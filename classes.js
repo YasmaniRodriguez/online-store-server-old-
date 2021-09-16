@@ -1,7 +1,17 @@
 class Item {
-	constructor(code, name, description, image, price, stock, timestamp) {
+	constructor(
+		code,
+		name,
+		category,
+		description,
+		image,
+		price,
+		stock,
+		timestamp
+	) {
 		this.code = code;
 		this.name = name;
+		this.category = category;
 		this.description = description;
 		this.image = image;
 		this.price = price;
@@ -11,8 +21,8 @@ class Item {
 }
 
 class CartItem {
-	constructor(id, product, quantity, timestamp) {
-		this.id = id;
+	constructor(row, product, quantity, timestamp) {
+		this.row = row;
 		this.product = product;
 		this.quantity = quantity;
 		this.amount = this.calcAmount();

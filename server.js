@@ -20,7 +20,7 @@ var PORT = process.env.PORT || 8080;
 
 var functions = require("./functions.js");
 
-var login = require("./routes/login.js");
+var generateToken = require("./routes/generate-token.js");
 
 var verifyToken = require("./routes/validate-token.js");
 
@@ -35,7 +35,7 @@ app.use(_express["default"].urlencoded({
   extended: true
 }));
 app.use(_express["default"]["static"](__dirname + "/public"));
-app.use(login);
+app.use(generateToken);
 app.use(verifyToken, products);
 app.use(verifyToken, cart);
 app.get("/", function (req, res) {
