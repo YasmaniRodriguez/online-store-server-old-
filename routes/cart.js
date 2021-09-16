@@ -38,21 +38,20 @@ router.get("/cart/:id", (req, res) => {
 router.post("/cart", (req, res) => {
 	const { product, quantity } = req.body;
 	const myPromise = new Promise((resolve, reject) => {
-		resolve(
+		resolve(functions.select_one_products(product));
+	});
+	myPromise
+		.then((result) => {
 			cart.push(
 				new classes.CartItem(
 					cart.length + 1,
-					product,
+					result[0],
 					quantity,
 					"null",
 					functions.timestamp
 				)
-			)
-		);
-	});
-	myPromise
-		.then(() => {
-			res.json(req.body);
+			);
+			res.json({ message: "product uploaded" });
 		})
 		.catch((error) => res.json(error));
 });
@@ -69,7 +68,7 @@ router.put("/cart/:id", (req, res) => {
 			} else {
 				const { quantity } = req.body;
 				result.setQuantity(quantity);
-				res.json({ status: "OK", id: req.params.id, changes: req.body });
+				res.json({ message: "product updated" });
 			}
 		})
 		.catch((error) => res.json(error));
@@ -89,7 +88,7 @@ router.delete("/cart/:id", (req, res) => {
 				if (i !== -1) {
 					cart.splice(i, 1);
 				}
-				res.json({ status: "OK", id: req.params.id, cart: result });
+				res.json({ message: "product removed" });
 			}
 		})
 		.catch((error) => res.json(error));

@@ -24,7 +24,7 @@ class CartItem {
 
 	setQuantity(newQuantity) {
 		this.quantity = newQuantity;
-		this.amount(this.quantity * this.product.price);
+		this.amount = this.calcAmount();
 	}
 }
 
