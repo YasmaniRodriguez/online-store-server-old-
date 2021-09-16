@@ -1,20 +1,29 @@
 [
 	{
-		"name": "Naranja de Ombligo",
-		"description": "Nombre adquirido por aquello de forma redonda que sobresale en la parte inferior de la fruta.",
-		"price": "69.00",
-		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_laranja-256.png"
+		"code": "nj-vOB",
+		"name": "Naranja",
+		"category": "Frutas y Verduras",
+		"description": "De Ombligo",
+		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_laranja-256.png",
+		"price": "60.00",
+		"stock": "500"
 	},
 	{
-		"name": "Manzanas Red Delicious",
-		"description": "Reconocido por primera vez en el condado de Madison, Iowa, Estados Unidos, en 1872.",
+		"code": "mz-vRD",
+		"name": "Manzanas",
+		"category": "Frutas y Verduras",
+		"description": "Red Delicious",
+		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_maca-256.png",
 		"price": "199.00",
-		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_maca-256.png"
+		"stock": "500"
 	},
 	{
-		"name": "Banana Cavendish",
-		"description": "Es una de las variedades de banana más famosa y cultivada.",
+		"code": "bn-vCV",
+		"name": "Bananas",
+		"category": "Frutas y Verduras",
+		"description": "Cavendish",
+		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_banana-256.png",
 		"price": "139.00",
-		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_banana-256.png"
+		"stock": "500"
 	}
 ]
