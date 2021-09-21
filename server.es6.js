@@ -3,6 +3,7 @@ const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
 const PORT = process.env.PORT || 8080;
+const persistance_mode = process.env.DATA_PERSISTANCE_MODE || "FileSystem";
 const functions = require("./functions.js");
 const generateToken = require("./routes/generate-token.js");
 const verifyToken = require("./routes/validate-token.js");
@@ -46,8 +47,10 @@ io.on("connection", (socket) => {
 /////////////////////////////////////////////////////////
 server
 	.listen(PORT, () => {
-		console.log(`magic is happening in http://localhost:${PORT}`);
+		console.log(
+			`Magic is happening in http://localhost:${PORT} and the data persistance mode is ${persistance_mode}. To change persistance mode, you can start server with command: DATA_PERSISTANCE_MODE=MyPersistanceMode npm start. MyPersistanceMode can be: FileSystem, MySQL, SQLite3, MongoDB or Firebase`
+		);
 	})
 	.on("err", (err) =>
-		console.log(`something is preventing us grow , more detail in: ${err}`)
+		console.log(`Something is preventing us grow , more detail in: ${err}`)
 	);
