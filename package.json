@@ -1,5 +1,5 @@
 {
-	"name": "online-store-webserver",
+	"name": "online-store-server",
 	"version": "1.0.0",
 	"description": "",
 	"main": "server.js",
@@ -30,12 +30,12 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/YasmaniRodriguez/yeah_server.git"
+		"url": "git+https://github.com/YasmaniRodriguez/online-store-server.git"
 	},
 	"author": "rodriguez yasmani",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/YasmaniRodriguez/yeah_server/issues"
+		"url": "https://github.com/YasmaniRodriguez/online-store-server/issues"
 	},
-	"homepage": "https://github.com/YasmaniRodriguez/yeah_server#readme"
+	"homepage": "https://github.com/YasmaniRodriguez/online-store-server#readme"
 }
