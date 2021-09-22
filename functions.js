@@ -1,8 +1,7 @@
 import moment from "moment";
 
-const { mysql, sqlite } = require("./settings/odbc.js");
-const store = require("knex")(mysql);
-const chat = require("knex")(sqlite);
+const store = require("knex");
+const chat = require("knex");
 
 const timestamp = moment().format();
 

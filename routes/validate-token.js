@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const settings = require("../settings/keys.js");
+const env = require("../settings/env.js");
 
 const verifyToken = (req, res, next) => {
 	const auth = req.headers.authorization;
@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
 			const token = auth.split(" ")[1];
 			const verified = jwt.verify(
 				token,
-				process.env.PRIVATE_KEY || settings.PRIVATE_KEY
+				process.env.PRIVATE_KEY || env.PRIVATE_KEY
 			);
 			req.user = verified;
 			next();
