@@ -36,7 +36,7 @@ switch (persistance) {
 		sqlite.buildSchema();
 		break;
 	case 4:
-		mongo.buildSchema();
+		mongo.createProducts();
 		break;
 	case 5:
 		firestore.buildSchema();

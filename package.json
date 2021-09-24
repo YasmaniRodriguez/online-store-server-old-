@@ -9,6 +9,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"knex": "^0.95.11",
 		"moment": "^2.29.1",
+		"mongoose": "^6.0.7",
 		"mysql": "^2.18.1",
 		"socket.io": "^4.2.0",
 		"sqlite3": "^5.0.2",
