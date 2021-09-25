@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
 const products = require("./mongooseModels/products");
+const orders = require("./mongooseModels/orders");
+const messages = require("./mongooseModels/messages");
 const env = require("../settings/env.js");
 
 mongoose
-	.connect(env.MONGO_URI)
+	//.connect(env.MONGO_CLOUD_URI)
+	.connect(env.MONGO_LOCAL_URI, env.MONGO_LOCAL_OPTIONS)
 	.then((connection) => {
 		console.log("Connected to MongoDB");
 	})
@@ -14,20 +17,25 @@ mongoose
 class mongo {
 	constructor() {}
 
-	createProducts() {
-		let product = {
-			code: "nj-vOB",
-			name: "Naranja",
-			category: "Frutas y Verduras",
-			description: "De Ombligo",
-			image:
-				"https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_laranja-256.png",
-			price: "60.00",
-			stock: "500",
-		};
+	buildSchema() {
+		console.log(
+			"everything is ready, but mongo does not require build the schema"
+		);
+	}
 
-		const productSaveModel = new products(product);
-		let productSave = productSaveModel.save();
+	addProducts(product) {
+		const newProduct = new products(product);
+		return newProduct.save();
+	}
+
+	addMessages(message) {
+		const newMessage = new messages(message);
+		return newMessage.save();
+	}
+
+	addOrders(order) {
+		const newOrder = new messages(order);
+		return newOrder.save();
 	}
 }
 

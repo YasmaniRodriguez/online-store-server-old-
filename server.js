@@ -55,7 +55,7 @@ switch (persistance) {
     break;
 
   case 4:
-    mongo.createProducts();
+    mongo.buildSchema();
     break;
 
   case 5:
