@@ -24,6 +24,7 @@ router.get("/products", (req, res) => {
 });
 
 //get product by id
+//adaptar para que soporte cualquier parametro//
 router.get("/products/:id", (req, res) => {
 	const myPromise = new Promise((resolve, reject) => {
 		resolve(DAO.getProducts(req.params.id));
@@ -60,11 +61,12 @@ router.post("/products", checkAuthority, (req, res) => {
 });
 
 //update product by id
+//adaptar para actualizar todos
 router.put("/products/:id", checkAuthority, (req, res) => {
 	const myPromise = new Promise((resolve, reject) => {
 		const record = req.params.id;
 		const fields = req.body;
-		resolve(functions.update_one_products(record, fields));
+		resolve(DAO.updateProducts(record, fields));
 	});
 	myPromise
 		.then(() => {
@@ -74,10 +76,12 @@ router.put("/products/:id", checkAuthority, (req, res) => {
 });
 
 //delete product
+//adaptar para borrar todos
 router.delete("/products/:id", checkAuthority, (req, res) => {
 	const myPromise = new Promise((resolve, reject) => {
 		const record = req.params.id;
-		resolve(functions.delete_one_products(record));
+		console.log(record);
+		resolve(DAO.deleteProducts(record));
 	});
 	myPromise
 		.then(() => {

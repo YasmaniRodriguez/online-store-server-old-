@@ -5,7 +5,7 @@ const messages = require("./models/messages");
 const env = require("../../settings/env.js");
 
 mongoose
-	.connect(env.MONGO_LOCAL_URI, env.MONGO_LOCAL_OPTIONS)
+	.connect(env.MONGO_LOCAL_URI, env.MONGO_LOCAL_OPTIONS || env.MONGO_CLOUD_URI)
 	.then((connection) => {
 		console.log("congrats, we are connected to mongo");
 	})
@@ -49,9 +49,9 @@ class mongo {
 
 	async deleteProducts(product = null) {
 		if (!product) {
-			await products.remove({});
+			await products.deleteMany({});
 		} else {
-			await products.remove({ code: { $eq: product } });
+			await products.deleteOne({ code: { $eq: product } });
 		}
 	}
 
