@@ -4,11 +4,15 @@ const router = express.Router();
 const classes = require("../classes.js");
 const functions = require("../functions.js");
 const checkAuthority = require("./authorities.js");
+const pers = require("./data-access-object.js").getMethods();
+const DataPersistenceMethod = require(pers);
+const DAO = new DataPersistenceMethod();
 
 //get all products
 router.get("/products", (req, res) => {
+	console.log(req.query);
 	const myPromise = new Promise((resolve, reject) => {
-		resolve(functions.select_all_products);
+		resolve(DAO.getProducts());
 	});
 	myPromise
 		.then((result) => {
@@ -22,7 +26,7 @@ router.get("/products", (req, res) => {
 //get product by id
 router.get("/products/:id", (req, res) => {
 	const myPromise = new Promise((resolve, reject) => {
-		resolve(functions.select_one_products(req.params.id));
+		resolve(DAO.getProducts(req.params.id));
 	});
 	myPromise
 		.then((result) => {
@@ -36,18 +40,17 @@ router.get("/products/:id", (req, res) => {
 //add product
 router.post("/products", checkAuthority, (req, res) => {
 	const { code, name, category, description, image, price, stock } = req.body;
-	const product = new classes.Item(
+	const product = new classes.Product(
 		code,
 		name,
 		category,
 		description,
 		image,
 		price,
-		stock,
-		functions.timestamp
+		stock
 	);
 	const myPromise = new Promise((resolve, reject) => {
-		resolve(functions.insert_into_products(product));
+		resolve(DAO.addProducts(product));
 	});
 	myPromise
 		.then(() => {

@@ -5,14 +5,14 @@ const io = require("socket.io")(server);
 const env = require("./settings/env.js");
 const PORT = process.env.PORT || env.PORT;
 const persistance =
-	process.env.DATA_PERSISTANCE_MODE || env.DATA_PERSISTANCE_MODE;
-const functions = require("./functions.js");
+	process.env.DATA_PERSISTENCE_MODE || env.DATA_PERSISTENCE_MODE;
+//const functions = require("./functions.js");
 
-const FileSystemDAO = require("./dao/FileSystem.js");
-const MySQLDAO = require("./dao/MySQL.js");
-const SQLite3DAO = require("./dao/SQLite3.js");
-const MongoDBDAO = require("./dao/MongoDB.js");
-const FirestoreDAO = require("./dao/Firestore.js");
+const FileSystemDAO = require("./dao/FileSystem/FileSystem.js");
+const MySQLDAO = require("./dao/MySQL/MySQL.js");
+const SQLite3DAO = require("./dao/SQLite/SQLite3.js");
+const MongoDBDAO = require("./dao/MongoDB/MongoDB.js");
+const FirestoreDAO = require("./dao/Firestore/Firestore.js");
 
 const generateToken = require("./routes/generate-token.js");
 const verifyToken = require("./routes/validate-token.js");

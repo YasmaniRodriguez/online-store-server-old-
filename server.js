@@ -13,19 +13,17 @@ var io = require("socket.io")(server);
 var env = require("./settings/env.js");
 
 var PORT = process.env.PORT || env.PORT;
-var persistance = process.env.DATA_PERSISTANCE_MODE || env.DATA_PERSISTANCE_MODE;
+var persistance = process.env.DATA_PERSISTENCE_MODE || env.DATA_PERSISTENCE_MODE; //const functions = require("./functions.js");
 
-var functions = require("./functions.js");
+var FileSystemDAO = require("./dao/FileSystem/FileSystem.js");
 
-var FileSystemDAO = require("./dao/FileSystem.js");
+var MySQLDAO = require("./dao/MySQL/MySQL.js");
 
-var MySQLDAO = require("./dao/MySQL.js");
+var SQLite3DAO = require("./dao/SQLite/SQLite3.js");
 
-var SQLite3DAO = require("./dao/SQLite3.js");
+var MongoDBDAO = require("./dao/MongoDB/MongoDB.js");
 
-var MongoDBDAO = require("./dao/MongoDB.js");
-
-var FirestoreDAO = require("./dao/Firestore.js");
+var FirestoreDAO = require("./dao/Firestore/Firestore.js");
 
 var generateToken = require("./routes/generate-token.js");
 

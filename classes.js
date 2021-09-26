@@ -1,4 +1,4 @@
-class Item {
+class Product {
 	constructor(
 		code,
 		name,
@@ -20,7 +20,7 @@ class Item {
 	}
 }
 
-class CartItem {
+class OrderRow {
 	constructor(row, product, quantity, timestamp) {
 		this.row = row;
 		this.product = product;
@@ -38,4 +38,4 @@ class CartItem {
 	}
 }
 
-module.exports = { Item, CartItem };
+module.exports = { Product, OrderRow };

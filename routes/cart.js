@@ -43,7 +43,7 @@ router.post("/cart", (req, res) => {
 	myPromise
 		.then((result) => {
 			cart.push(
-				new classes.CartItem(
+				new classes.OrderRow(
 					cart.length + 1,
 					result[0],
 					quantity,
