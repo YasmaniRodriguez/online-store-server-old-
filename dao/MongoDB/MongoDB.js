@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const products = require("./models/products");
 const orders = require("./models/orders");
 const messages = require("./models/messages");
-const env = require("../../settings/env.js");
+const env = require("../../env.js");
 
 mongoose
 	.connect(env.MONGO_LOCAL_URI, env.MONGO_LOCAL_OPTIONS || env.MONGO_CLOUD_URI)

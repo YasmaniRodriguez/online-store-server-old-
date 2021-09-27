@@ -1,6 +1,6 @@
-const env = require("../settings/env.js");
+const env = require("../env.js");
 
-const getMethods = () => {
+const getDataHandler = () => {
 	switch (process.env.DATA_PERSISTENCE_MODE || env.DATA_PERSISTENCE_MODE) {
 		case 1:
 			return "../dao/FileSystem/FileSystem.js";
@@ -23,4 +23,4 @@ const getMethods = () => {
 	}
 };
 
-module.exports = { getMethods };
+module.exports = { getDataHandler };

@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const settings = require("../settings/env.js");
+const settings = require("../env.js");
 
 const users = [
 	{

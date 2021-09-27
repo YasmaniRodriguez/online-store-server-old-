@@ -2,13 +2,13 @@ import express from "express";
 const router = express.Router();
 
 const classes = require("../classes.js");
-const functions = require("../functions.js");
 const checkAuthority = require("./authorities.js");
-const pers = require("./data-access-object.js").getMethods();
-const DataPersistenceMethod = require(pers);
-const DAO = new DataPersistenceMethod();
+const myDataHandler = require("./data-handler.js").getDataHandler();
+const DataPersistenceMode = require(myDataHandler);
+const DAO = new DataPersistenceMode();
 
 //get all products
+
 router.get("/products", (req, res) => {
 	console.log(req.query);
 	const myPromise = new Promise((resolve, reject) => {
@@ -23,8 +23,8 @@ router.get("/products", (req, res) => {
 		.catch((error) => res.json(error));
 });
 
-//get product by id
-//adaptar para que soporte cualquier parametro//
+//get product by id: refactorizar para que soporte cualquier parametro
+
 router.get("/products/:id", (req, res) => {
 	const myPromise = new Promise((resolve, reject) => {
 		resolve(DAO.getProducts(req.params.id));
@@ -39,6 +39,7 @@ router.get("/products/:id", (req, res) => {
 });
 
 //add product
+
 router.post("/products", checkAuthority, (req, res) => {
 	const { code, name, category, description, image, price, stock } = req.body;
 	const product = new classes.Product(
@@ -60,8 +61,8 @@ router.post("/products", checkAuthority, (req, res) => {
 		.catch((error) => res.json(error));
 });
 
-//update product by id
-//adaptar para actualizar todos
+//update product by id: refactorizar para poder actualizar todos
+
 router.put("/products/:id", checkAuthority, (req, res) => {
 	const myPromise = new Promise((resolve, reject) => {
 		const record = req.params.id;
@@ -75,8 +76,8 @@ router.put("/products/:id", checkAuthority, (req, res) => {
 		.catch((error) => res.json(error));
 });
 
-//delete product
-//adaptar para borrar todos
+//delete product: refactorizar para poder borrar todos
+
 router.delete("/products/:id", checkAuthority, (req, res) => {
 	const myPromise = new Promise((resolve, reject) => {
 		const record = req.params.id;
