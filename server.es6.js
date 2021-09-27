@@ -46,6 +46,7 @@ switch (data) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
+app.set("socketio", io);
 app.use(generateToken);
 app.use(verifyToken, products);
 app.use(verifyToken, orders);
@@ -54,26 +55,9 @@ app.get("/", (req, res) => {
 	res.status(200).sendFile("index.html", { root: __dirname + "/public" });
 });
 /////////////////////////////////////////////////////////
-// io.on("connection", (socket) => {
-// 	console.log(`connection_identifier: ${socket.id}`);
-// 	functions.getMessages
-// 		.then((rows) => {
-// 			io.emit("messages", rows);
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// 	socket.on("new-message", (message) => {
-// 		functions.addMessage({ ...message, datetime: functions.timestamp });
-// 		functions.getMessages
-// 			.then((rows) => {
-// 				io.emit("messages", rows);
-// 			})
-// 			.catch((err) => {
-// 				console.log(err);
-// 			});
-// 	});
-// });
+io.on("connect", (socket) => {
+	socket.emit("id", socket.id);
+});
 /////////////////////////////////////////////////////////
 server
 	.listen(port, () => {

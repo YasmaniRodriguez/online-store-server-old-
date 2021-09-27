@@ -69,6 +69,7 @@ app.use(_express["default"].urlencoded({
   extended: true
 }));
 app.use(_express["default"]["static"](__dirname + "/public"));
+app.set("socketio", io);
 app.use(generateToken);
 app.use(verifyToken, products);
 app.use(verifyToken, orders);
@@ -77,27 +78,10 @@ app.get("/", function (req, res) {
     root: __dirname + "/public"
   });
 }); /////////////////////////////////////////////////////////
-// io.on("connection", (socket) => {
-// 	console.log(`connection_identifier: ${socket.id}`);
-// 	functions.getMessages
-// 		.then((rows) => {
-// 			io.emit("messages", rows);
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// 	socket.on("new-message", (message) => {
-// 		functions.addMessage({ ...message, datetime: functions.timestamp });
-// 		functions.getMessages
-// 			.then((rows) => {
-// 				io.emit("messages", rows);
-// 			})
-// 			.catch((err) => {
-// 				console.log(err);
-// 			});
-// 	});
-// });
-/////////////////////////////////////////////////////////
+
+io.on("connect", function (socket) {
+  socket.emit("id", socket.id);
+}); /////////////////////////////////////////////////////////
 
 server.listen(port, function () {
   console.log("magic is happening in http://localhost:".concat(port, " and the data persistance mode is ").concat(data, ". to change persistance mode, you can start server with command: DATA_PERSISTANCE_MODE=MyPersistanceMode npm start. MyPersistanceMode can be: 1 [FileSystem], 2 [MySQL], 3 [SQLite3], 4 [MongoDB] or 5 [Firebase]"));
