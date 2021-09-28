@@ -4,6 +4,12 @@ var _express = _interopRequireDefault(require("express"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var app = (0, _express["default"])();
 
 var server = require("http").Server(app);
@@ -13,17 +19,10 @@ var io = require("socket.io")(server);
 var env = require("./env.js");
 
 var port = process.env.PORT || env.PORT;
-var data = process.env.DATA_PERSISTENCE_MODE || env.DATA_PERSISTENCE_MODE;
 
-var FileSystemDAO = require("./dao/FileSystem/FileSystem.js");
+var dataHandlerFileLocation = require("./functions.js").getDataHandlerFileLocation();
 
-var MySQLDAO = require("./dao/MySQL/MySQL.js");
-
-var SQLite3DAO = require("./dao/SQLite/SQLite3.js");
-
-var MongoDBDAO = require("./dao/MongoDB/MongoDB.js");
-
-var FirestoreDAO = require("./dao/Firestore/Firestore.js");
+var DAO = require(dataHandlerFileLocation);
 
 var generateToken = require("./routes/generate-token.js");
 
@@ -33,43 +32,15 @@ var products = require("./routes/products.js");
 
 var orders = require("./routes/orders.js");
 
-var fs = new FileSystemDAO();
-var mysql = new MySQLDAO();
-var sqlite = new SQLite3DAO();
-var mongo = new MongoDBDAO();
-var firestore = new FirestoreDAO();
-
-switch (data) {
-  case 1:
-    fs.buildSchema();
-    break;
-
-  case 2:
-    mysql.buildSchema();
-    break;
-
-  case 3:
-    sqlite.buildSchema();
-    break;
-
-  case 4:
-    mongo.buildSchema();
-    break;
-
-  case 5:
-    firestore.buildSchema();
-    break;
-
-  default:
-    break;
-}
-
+var dataHandler = new DAO();
+dataHandler.buildSchema();
 app.use(_express["default"].json());
 app.use(_express["default"].urlencoded({
   extended: true
 }));
 app.use(_express["default"]["static"](__dirname + "/public"));
 app.set("socketio", io);
+app.set("dataHandler", dataHandler);
 app.use(generateToken);
 app.use(verifyToken, products);
 app.use(verifyToken, orders);
@@ -80,11 +51,25 @@ app.get("/", function (req, res) {
 }); /////////////////////////////////////////////////////////
 
 io.on("connect", function (socket) {
+  console.log("connection_identifier: ".concat(socket.id));
   socket.emit("id", socket.id);
+  DAO.getMessages().then(function (rows) {
+    io.emit("messages", rows);
+  })["catch"](function (err) {
+    console.log(err);
+  });
+  socket.on("new-message", function (message) {
+    DAO.addMessage(_objectSpread({}, message));
+    DAO.getMessages().then(function (rows) {
+      io.emit("messages", rows);
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  });
 }); /////////////////////////////////////////////////////////
 
 server.listen(port, function () {
-  console.log("magic is happening in http://localhost:".concat(port, " and the data persistance mode is ").concat(data, ". to change persistance mode, you can start server with command: DATA_PERSISTANCE_MODE=MyPersistanceMode npm start. MyPersistanceMode can be: 1 [FileSystem], 2 [MySQL], 3 [SQLite3], 4 [MongoDB] or 5 [Firebase]"));
+  console.log("magic is happening in http://localhost:".concat(port, " and the data persistance mode is ").concat(process.env.DATA_PERSISTENCE_MODE || env.DATA_PERSISTENCE_MODE, ". to change persistance mode, you can start server with command: DATA_PERSISTANCE_MODE=MyPersistanceMode npm start. MyPersistanceMode can be: 1 [FileSystem], 2 [MySQL], 3 [SQLite3], 4 [MongoDB] or 5 [Firebase]"));
 }).on("err", function (err) {
   return console.log("something is preventing us grow , more detail in: ".concat(err));
 });

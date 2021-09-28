@@ -1,9 +1,36 @@
-import moment from "moment";
+const env = require("./env.js");
 
-const store = require("knex");
-const chat = require("knex");
+function getDataHandlerFileLocation() {
+	switch (process.env.DATA_PERSISTENCE_MODE || env.DATA_PERSISTENCE_MODE) {
+		case 1:
+			return "./dao/FileSystem/FileSystem.js";
+			break;
+		case 2:
+			return "./dao/MySQL/MySQL.js";
+			break;
+		case 3:
+			return "./dao/SQLite/SQLite3.js";
+			break;
+		case 4:
+			return "./dao/MongoDB/MongoDB.js";
+			break;
+		case 5:
+			return "./dao/Firestore/Firestore.js";
+			break;
+		default:
+			console.log("persistence mode was not selected");
+			break;
+	}
+}
 
-const timestamp = moment().format();
+module.exports = { getDataHandlerFileLocation };
+
+// import moment from "moment";
+
+// const store = require("knex");
+// const chat = require("knex");
+
+// const timestamp = moment().format();
 
 // const create_table_products = () => {
 // 	store.schema.hasTable("products").then((exists) => {

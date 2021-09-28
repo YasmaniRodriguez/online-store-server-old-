@@ -3,14 +3,11 @@ const router = express.Router();
 
 const classes = require("../classes.js");
 const checkAuthority = require("./authorities.js");
-const myDataHandler = require("./data-handler.js").getDataHandler();
-const DataPersistenceMode = require(myDataHandler);
-const DAO = new DataPersistenceMode();
 
 //get all products
 
 router.get("/products", (req, res) => {
-	console.log(req.query);
+	const DAO = req.app.get("dataHandler");
 	const myPromise = new Promise((resolve, reject) => {
 		resolve(DAO.getProducts());
 	});
@@ -26,6 +23,7 @@ router.get("/products", (req, res) => {
 //get product by id: refactorizar para que soporte cualquier parametro
 
 router.get("/products/:id", (req, res) => {
+	const DAO = req.app.get("dataHandler");
 	const myPromise = new Promise((resolve, reject) => {
 		resolve(DAO.getProducts(req.params.id));
 	});
@@ -41,6 +39,7 @@ router.get("/products/:id", (req, res) => {
 //add product
 
 router.post("/products", checkAuthority, (req, res) => {
+	const DAO = req.app.get("dataHandler");
 	const { code, name, category, description, image, price, stock } = req.body;
 	const product = new classes.Product(
 		code,
@@ -64,6 +63,7 @@ router.post("/products", checkAuthority, (req, res) => {
 //update product by id: refactorizar para poder actualizar todos
 
 router.put("/products/:id", checkAuthority, (req, res) => {
+	const DAO = req.app.get("dataHandler");
 	const myPromise = new Promise((resolve, reject) => {
 		const record = req.params.id;
 		const fields = req.body;
@@ -79,6 +79,7 @@ router.put("/products/:id", checkAuthority, (req, res) => {
 //delete product: refactorizar para poder borrar todos
 
 router.delete("/products/:id", checkAuthority, (req, res) => {
+	const DAO = req.app.get("dataHandler");
 	const myPromise = new Promise((resolve, reject) => {
 		const record = req.params.id;
 		console.log(record);
