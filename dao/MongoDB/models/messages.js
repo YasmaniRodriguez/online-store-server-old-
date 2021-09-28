@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema(
 	{
-		alias: { type: String },
+		email: { type: String },
 		message: { type: String },
 	},
 	{ timestamps: true }

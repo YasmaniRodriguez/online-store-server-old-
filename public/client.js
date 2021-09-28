@@ -40,6 +40,7 @@ const socket = io();
 //////////////////////////////////////////////
 
 socket.on("messages", (data) => {
+	console.log(data);
 	renderMessage(data);
 });
 
@@ -47,8 +48,8 @@ const renderMessage = (data) => {
 	let html = data
 		.map((message) => {
 			return `<li class="message-item">
-						<p>${message.alias}</p>
-						<p>[${message.datetime}]:</p>
+						<p>${message.email}</p>
+						<p>[${message.updatedAt}]:</p>
 						<p>${message.message}</p>
 					</li>`;
 		})

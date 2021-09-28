@@ -12,6 +12,7 @@ const generateToken = require("./routes/generate-token.js");
 const verifyToken = require("./routes/validate-token.js");
 const products = require("./routes/products.js");
 const orders = require("./routes/orders.js");
+const messages = require("./routes/messages.js");
 
 const dataHandler = new DAO();
 dataHandler.buildSchema();
@@ -24,6 +25,7 @@ app.set("dataHandler", dataHandler);
 app.use(generateToken);
 app.use(verifyToken, products);
 app.use(verifyToken, orders);
+app.use(verifyToken, messages);
 
 app.get("/", (req, res) => {
 	res.status(200).sendFile("index.html", { root: __dirname + "/public" });
@@ -32,7 +34,8 @@ app.get("/", (req, res) => {
 io.on("connect", (socket) => {
 	console.log(`connection_identifier: ${socket.id}`);
 	socket.emit("id", socket.id);
-	DAO.getMessages()
+	dataHandler
+		.getMessages()
 		.then((rows) => {
 			io.emit("messages", rows);
 		})
@@ -40,8 +43,9 @@ io.on("connect", (socket) => {
 			console.log(err);
 		});
 	socket.on("new-message", (message) => {
-		DAO.addMessage({ ...message });
-		DAO.getMessages()
+		dataHandler.addMessage({ ...message });
+		dataHandler
+			.getMessages()
 			.then((rows) => {
 				io.emit("messages", rows);
 			})

@@ -32,6 +32,8 @@ var products = require("./routes/products.js");
 
 var orders = require("./routes/orders.js");
 
+var messages = require("./routes/messages.js");
+
 var dataHandler = new DAO();
 dataHandler.buildSchema();
 app.use(_express["default"].json());
@@ -44,6 +46,7 @@ app.set("dataHandler", dataHandler);
 app.use(generateToken);
 app.use(verifyToken, products);
 app.use(verifyToken, orders);
+app.use(verifyToken, messages);
 app.get("/", function (req, res) {
   res.status(200).sendFile("index.html", {
     root: __dirname + "/public"
@@ -53,14 +56,14 @@ app.get("/", function (req, res) {
 io.on("connect", function (socket) {
   console.log("connection_identifier: ".concat(socket.id));
   socket.emit("id", socket.id);
-  DAO.getMessages().then(function (rows) {
+  dataHandler.getMessages().then(function (rows) {
     io.emit("messages", rows);
   })["catch"](function (err) {
     console.log(err);
   });
   socket.on("new-message", function (message) {
-    DAO.addMessage(_objectSpread({}, message));
-    DAO.getMessages().then(function (rows) {
+    dataHandler.addMessage(_objectSpread({}, message));
+    dataHandler.getMessages().then(function (rows) {
       io.emit("messages", rows);
     })["catch"](function (err) {
       console.log(err);

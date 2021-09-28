@@ -2,33 +2,32 @@ import express from "express";
 const router = express.Router();
 
 const checkAuthority = require("./authorities.js");
-const myDataHandler = require("./data-handler.js").getDataHandler();
-const DataPersistenceMode = require(myDataHandler);
-const DAO = new DataPersistenceMode();
 
-router.post("/messages", checkAuthority, (req, res, next) => {
-	const io = req.app.get("socketio");
+router.get("/messages", checkAuthority, (req, res) => {
+	const DAO = req.app.get("dataHandler");
+	const myPromise = new Promise((resolve, reject) => {
+		resolve(DAO.getMessages());
+	});
+	myPromise
+		.then((result) => {
+			result.length === 0
+				? res.json({ error: "there is not messages" })
+				: res.json({ messages: result });
+		})
+		.catch((error) => res.json(error));
+});
+
+router.post("/messages", checkAuthority, (req, res) => {
+	const DAO = req.app.get("dataHandler");
 	const message = req.body;
-	io.emit("new-message", { message });
-
-	// // grab the id from the request
-	// const socketId = req.body.message.socketId;
-	// // get the io object ref
-	// const io = req.app.get("socketio");
-	// // create a ref to the client socket
-	// const senderSocket = io.sockets.connected[socketId];
-	// Message.create(req.body.message)
-	// 	.then((message) => {
-	// 		// in case the client was disconnected after the request was sent
-	// 		// and there's no longer a socket with that id
-	// 		if (senderSocket) {
-	// 			// use broadcast.emit to message everyone except the original
-	// 			// sender of the request !!!
-	// 			senderSocket.broadcast.emit("new-message", { message });
-	// 		}
-	// 		res.status(201).json({ message: message.toObject() });
-	// 	})
-	// 	.catch(next);
+	const myPromise = new Promise((resolve, reject) => {
+		resolve(DAO.addMessages(message));
+	});
+	myPromise
+		.then(() => {
+			res.json({ message: "message uploaded" });
+		})
+		.catch((error) => res.json(error));
 });
 
 module.exports = router;
