@@ -20,9 +20,9 @@ var env = require("./env.js");
 
 var port = process.env.PORT || env.PORT;
 
-var dataHandlerFileLocation = require("./functions.js").getDataHandlerFileLocation();
+var dataHandlerFile = require("./functions.js").getDataHandlerFile();
 
-var DAO = require(dataHandlerFileLocation);
+var DAO = require(dataHandlerFile);
 
 var generateToken = require("./routes/generate-token.js");
 

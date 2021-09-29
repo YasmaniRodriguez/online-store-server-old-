@@ -4,6 +4,16 @@ const checkAuthority = require("./authorities.js");
 
 router.get("/orders", checkAuthority, (req, res) => {
 	const dataHandler = req.app.get("dataHandler");
+	const myPromise = new Promise((resolve, reject) => {
+		resolve(dataHandler.getOrders());
+	});
+	myPromise
+		.then((result) => {
+			result.length === 0
+				? res.json({ error: "there is not orders" })
+				: res.json({ products: result });
+		})
+		.catch((error) => res.json(error));
 });
 
 router.get("/orders/:id", checkAuthority, (req, res) => {
@@ -12,6 +22,15 @@ router.get("/orders/:id", checkAuthority, (req, res) => {
 
 router.post("/orders", checkAuthority, (req, res) => {
 	const dataHandler = req.app.get("dataHandler");
+	const order = req.body;
+	const myPromise = new Promise((resolve, reject) => {
+		resolve(dataHandler.addOrders(order));
+	});
+	myPromise
+		.then(() => {
+			res.json({ message: "order uploaded" });
+		})
+		.catch((error) => res.json(error));
 });
 
 router.put("/orders/:id", checkAuthority, (req, res) => {

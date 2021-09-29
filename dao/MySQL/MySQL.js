@@ -2,19 +2,19 @@ const env = require("../../env.js");
 
 const knex = require("knex")({
 	client: "mysql",
-	connection: env.MYSQL_LOCAL_OPTIONS,
+	connection: process.env.MYSQL_LOCAL_OPTIONS || env.MYSQL_LOCAL_OPTIONS,
 });
 
 class mysql {
 	constructor() {}
 
-	buildSchema() {
+	async buildSchema() {
 		knex.schema.hasTable("products").then((exists) => {
 			if (!exists) {
 				return knex.schema
 					.createTable("products", (table) => {
 						table.increments("id").primary();
-						table.string("code", 10);
+						table.string("code", 10).unique();
 						table.string("name", 20);
 						table.string("category", 20);
 						table.string("description", 20);
@@ -43,7 +43,7 @@ class mysql {
 					.createTable("buyers", (table) => {
 						table.increments("id").primary();
 						table.string("name");
-						table.string("email");
+						table.string("email").unique();
 						table.string("phone");
 						table.timestamps(true, true);
 					})
@@ -66,7 +66,7 @@ class mysql {
 				return knex.schema
 					.createTable("orders", (table) => {
 						table.increments("id").primary();
-						table.string("code", 20);
+						table.string("code").unique();
 						table.decimal("total_amount");
 						table.decimal("total_quantity");
 						table
@@ -233,57 +233,149 @@ class mysql {
 		knex.select("email", "message", "updated_at").from("messages");
 	}
 
-	async addOrders(order) {}
+	async addOrders(order) {
+		const { code, totalAmount, totalQuantity, status } = order;
+		const buyer = {
+			name: order.buyer.name,
+			email: order.buyer.email,
+			phone: order.buyer.phone,
+		};
+		const products = order.products;
+
+		knex
+			.transaction(function (t) {
+				knex
+					.transacting(t)
+					.select("id")
+					.from("buyers")
+					.where("email", buyer.email)
+					.then(function (i) {
+						if (i.length === 0) {
+							return knex.insert(buyer).into("buyers");
+						} else {
+							return i[0].id;
+						}
+					})
+					.then(function (i) {
+						return knex("orders")
+							.insert({
+								code: code,
+								total_amount: totalAmount,
+								total_quantity: totalQuantity,
+								status: status,
+								buyer: i,
+							})
+							.transacting(t);
+					})
+					.then(function (i) {
+						products.forEach(
+							(product) => (
+								(product.order = i[0]),
+								(product.product = knex("products")
+									.where("code", product.product.code)
+									.select("id"))
+							)
+						);
+
+						return knex("orderrows").insert(products).transacting(t);
+					})
+					.then(t.commit)
+					.catch(t.rollback);
+			})
+			.then(() => {
+				console.log("order uploaded");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
 
 	async getOrders(order = null) {
 		if (!order) {
-			const data = await knex("orders")
-				.join("buyers", "orders.buyer", "=", "buyers.id")
-				.join("orderrows", "orders.id", "=", "orderrows.order")
-				.join("products", "products.id", "=", "orderrows.product")
-				.select(
-					"orders.code",
-					"orders.total_amount",
-					"orders.total_quantity",
-					"orders.status",
-					"buyers.name",
-					"buyers.phone",
-					"buyers.email",
-					"orderrows.quantity",
-					"orderrows.amount",
-					"products.code",
-					"products.name",
-					"products.category",
-					"products.description",
-					"products.image",
-					"products.price",
-					"products.stock"
-				);
+			const data = (
+				await knex("orders")
+					.join("buyers", "orders.buyer", "=", "buyers.id")
+					.join("orderrows", "orders.id", "=", "orderrows.order")
+					.join("products", "products.id", "=", "orderrows.product")
+					.select({
+						code: "orders.code",
+						totalAmount: "orders.total_amount",
+						totalQuantity: "orders.total_quantity",
+						status: "orders.status",
+						buyerName: "buyers.name",
+						buyerPhone: "buyers.phone",
+						buyerEmail: "buyers.email",
+						productCode: "products.code",
+						productName: "products.name",
+						productCategory: "products.category",
+						productDescription: "products.description",
+						productImage: "products.image",
+						productPrice: "products.price",
+						productStock: "products.stock",
+						productQuantity: "orderrows.quantity",
+						productAmount: "orderrows.amount",
+					})
+			).reduce((result, row) => {
+				result[row.id] = result[row.id] || {
+					code: row.code,
+					totalAmount: row.totalAmount,
+					totalQuantity: row.totalQuantity,
+					status: row.status,
+					buyer: {
+						name: row.buyerName,
+						phone: row.buyerPhone,
+						email: row.buyerEmail,
+					},
+					products: [],
+				};
+
+				result[row.id].products.push({
+					code: row.productCode,
+					name: row.productName,
+					category: row.productCategory,
+					description: row.productDescription,
+					image: row.productImage,
+					price: row.productPrice,
+					stock: row.productStock,
+					quantity: row.productQuantity,
+					amount: row.productAmount,
+				});
+				return result;
+			}, {});
 			return data;
 		} else {
-			const data = await knex("orders")
-				.where("code", order)
-				.join("buyers", "orders.buyer", "=", "buyers.id")
-				.join("orderrows", "orders.id", "=", "orderrows.order")
-				.join("products", "products.id", "=", "orderrows.product")
-				.select(
-					"orders.code",
-					"orders.total_amount",
-					"orders.total_quantity",
-					"orders.status",
-					"buyers.name",
-					"buyers.phone",
-					"buyers.email",
-					"orderrows.quantity",
-					"orderrows.amount",
-					"products.code",
-					"products.name",
-					"products.category",
-					"products.description",
-					"products.image",
-					"products.price",
-					"products.stock"
-				);
+			const data = (
+				await knex("orders")
+					.join("buyers", "orders.buyer", "=", "buyers.id")
+					.join("orderrows", "orders.id", "=", "orderrows.order")
+					.join("products", "products.id", "=", "orderrows.product")
+					.where("code", order)
+			).reduce((result, row) => {
+				result[row.id] = result[row.id] || {
+					id: row.id,
+					code: row.code,
+					totalAmount: row.total_amount,
+					totalQuantity: row.total_quantity,
+					status: row.status,
+					buyerName: row.name,
+					buyerPhone: row.phone,
+					buyerEmail: row.email,
+					products: [],
+				};
+
+				result[row.id].products.push({
+					code: row.code,
+					name: row.name,
+					category: row.category,
+					description: row.description,
+					image: row.image,
+					price: row.price,
+					stock: row.stock,
+					quantity: row.quantity,
+					amount: row.stock,
+				});
+				return result;
+			}, {});
 			return data;
 		}
 	}

@@ -3,7 +3,7 @@
 		"code": "bc402cd2-20d2-11ec-9621-0242ac130002",
 		"totalAmount": 16000,
 		"totalQuantity": 30,
-		"status": "in-progress",
+		"status": 1,
 		"buyer": {
 			"name": "Juan Perez",
 			"phone": "+54 911 4321 8765 ",

@@ -4,9 +4,8 @@ const server = require("http").Server(app);
 const io = require("socket.io")(server);
 const env = require("./env.js");
 const port = process.env.PORT || env.PORT;
-const dataHandlerFileLocation =
-	require("./functions.js").getDataHandlerFileLocation();
-const DAO = require(dataHandlerFileLocation);
+const dataHandlerFile = require("./functions.js").getDataHandlerFile();
+const DAO = require(dataHandlerFile);
 
 const generateToken = require("./routes/generate-token.js");
 const verifyToken = require("./routes/validate-token.js");
