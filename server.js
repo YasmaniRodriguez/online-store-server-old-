@@ -30,6 +30,8 @@ var verifyToken = require("./routes/validate-token.js");
 
 var products = require("./routes/products.js");
 
+var carts = require("./routes/carts.js");
+
 var orders = require("./routes/orders.js");
 
 var messages = require("./routes/messages.js");
@@ -45,6 +47,7 @@ app.set("socketio", io);
 app.set("dataHandler", dataHandler);
 app.use(generateToken);
 app.use(verifyToken, products);
+app.use(verifyToken, carts);
 app.use(verifyToken, orders);
 app.use(verifyToken, messages);
 app.get("/", function (req, res) {

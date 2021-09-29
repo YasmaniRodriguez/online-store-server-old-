@@ -1,6 +1,6 @@
 const PRIVATE_KEY = "miclaveultrasecreta123*";
 const PORT = 8080;
-const DATA_PERSISTENCE_MODE = 4;
+const DATA_PERSISTENCE_MODE = 2;
 const MONGO_LOCAL_OPTIONS = {
 	authSource: "admin",
 	user: "root",
@@ -9,6 +9,14 @@ const MONGO_LOCAL_OPTIONS = {
 const MONGO_CLOUD_URI =
 	"mongodb+srv://root:masterinc@online-store-server.ocmyz.mongodb.net/ecommerce";
 const MONGO_LOCAL_URI = "mongodb://localhost:27017/ecommerce";
+const MYSQL_LOCAL_OPTIONS = {
+	host: "127.0.0.1",
+	port: 3306,
+	user: "root",
+	password: "12345678",
+	database: "ecommerce",
+};
+
 module.exports = {
 	PRIVATE_KEY,
 	PORT,
@@ -16,4 +24,5 @@ module.exports = {
 	MONGO_CLOUD_URI,
 	MONGO_LOCAL_URI,
 	MONGO_LOCAL_OPTIONS,
+	MYSQL_LOCAL_OPTIONS,
 };

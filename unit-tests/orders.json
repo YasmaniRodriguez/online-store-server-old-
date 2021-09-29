@@ -1,0 +1,54 @@
+[
+	{
+		"code": "bc402cd2-20d2-11ec-9621-0242ac130002",
+		"totalAmount": 16000,
+		"totalQuantity": 30,
+		"status": "in-progress",
+		"buyer": {
+			"name": "Juan Perez",
+			"phone": "+54 911 4321 8765 ",
+			"email": "juan_perez@gmail.com"
+		},
+		"products": [
+			{
+				"product": {
+					"code": "nj-vOB",
+					"name": "Naranja",
+					"category": "Frutas y Verduras",
+					"description": "De Ombligo",
+					"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_laranja-256.png",
+					"price": 120,
+					"stock": 500
+				},
+				"quantity": 10,
+				"amount": 1200
+			},
+			{
+				"product": {
+					"code": "mz-vRD",
+					"name": "Manzanas",
+					"category": "Frutas y Verduras",
+					"description": "Red Delicious",
+					"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_maca-256.png",
+					"price": 580,
+					"stock": 500
+				},
+				"quantity": 10,
+				"amount": 5800
+			},
+			{
+				"product": {
+					"code": "bn-vCV",
+					"name": "Bananas",
+					"category": "Frutas y Verduras",
+					"description": "Cavendish",
+					"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_banana-256.png",
+					"price": 900,
+					"stock": 500
+				},
+				"quantity": 10,
+				"amount": 9000
+			}
+		]
+	}
+]

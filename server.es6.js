@@ -11,6 +11,7 @@ const DAO = require(dataHandlerFileLocation);
 const generateToken = require("./routes/generate-token.js");
 const verifyToken = require("./routes/validate-token.js");
 const products = require("./routes/products.js");
+const carts = require("./routes/carts.js");
 const orders = require("./routes/orders.js");
 const messages = require("./routes/messages.js");
 
@@ -24,6 +25,7 @@ app.set("socketio", io);
 app.set("dataHandler", dataHandler);
 app.use(generateToken);
 app.use(verifyToken, products);
+app.use(verifyToken, carts);
 app.use(verifyToken, orders);
 app.use(verifyToken, messages);
 

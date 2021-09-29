@@ -6,10 +6,10 @@ const checkAuthority = require("./authorities.js");
 
 //get all products
 
-router.get("/products", (req, res) => {
-	const DAO = req.app.get("dataHandler");
+router.get("/products", checkAuthority, (req, res) => {
+	const dataHandler = req.app.get("dataHandler");
 	const myPromise = new Promise((resolve, reject) => {
-		resolve(DAO.getProducts());
+		resolve(dataHandler.getProducts());
 	});
 	myPromise
 		.then((result) => {
@@ -22,10 +22,10 @@ router.get("/products", (req, res) => {
 
 //get product by id: refactorizar para que soporte cualquier parametro
 
-router.get("/products/:id", (req, res) => {
-	const DAO = req.app.get("dataHandler");
+router.get("/products/:id", checkAuthority, (req, res) => {
+	const dataHandler = req.app.get("dataHandler");
 	const myPromise = new Promise((resolve, reject) => {
-		resolve(DAO.getProducts(req.params.id));
+		resolve(dataHandler.getProducts(req.params.id));
 	});
 	myPromise
 		.then((result) => {
@@ -39,7 +39,7 @@ router.get("/products/:id", (req, res) => {
 //add product
 
 router.post("/products", checkAuthority, (req, res) => {
-	const DAO = req.app.get("dataHandler");
+	const dataHandler = req.app.get("dataHandler");
 	const { code, name, category, description, image, price, stock } = req.body;
 	const product = new classes.Product(
 		code,
@@ -51,7 +51,7 @@ router.post("/products", checkAuthority, (req, res) => {
 		stock
 	);
 	const myPromise = new Promise((resolve, reject) => {
-		resolve(DAO.addProducts(product));
+		resolve(dataHandler.addProducts(product));
 	});
 	myPromise
 		.then(() => {
@@ -63,11 +63,11 @@ router.post("/products", checkAuthority, (req, res) => {
 //update product by id: refactorizar para poder actualizar todos
 
 router.put("/products/:id", checkAuthority, (req, res) => {
-	const DAO = req.app.get("dataHandler");
+	const dataHandler = req.app.get("dataHandler");
 	const myPromise = new Promise((resolve, reject) => {
 		const record = req.params.id;
 		const fields = req.body;
-		resolve(DAO.updateProducts(record, fields));
+		resolve(dataHandler.updateProducts(record, fields));
 	});
 	myPromise
 		.then(() => {
@@ -79,11 +79,11 @@ router.put("/products/:id", checkAuthority, (req, res) => {
 //delete product: refactorizar para poder borrar todos
 
 router.delete("/products/:id", checkAuthority, (req, res) => {
-	const DAO = req.app.get("dataHandler");
+	const dataHandler = req.app.get("dataHandler");
 	const myPromise = new Promise((resolve, reject) => {
 		const record = req.params.id;
 		console.log(record);
-		resolve(DAO.deleteProducts(record));
+		resolve(dataHandler.deleteProducts(record));
 	});
 	myPromise
 		.then(() => {

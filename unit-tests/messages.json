@@ -1,0 +1,50 @@
+[
+	{
+		"email": "usuario_1@gmail.com",
+		"message": "Hola buen noches, cómo estan?"
+	},
+	{
+		"email": "usuario_2@gmail.com",
+		"message": "Hola, todo bien y vos?"
+	},
+	{
+		"email": "usuario_1@gmail.com",
+		"message": "Todo bien, quería preguntarte si hacen envío"
+	},
+	{
+		"email": "usuario_2@gmail.com",
+		"message": "Yyyy depende de la zona, por donde estas?"
+	},
+	{
+		"email": "usuario_1@gmail.com",
+		"message": "Por Microcentro"
+	},
+	{
+		"email": "usuario_2@gmail.com",
+		"message": "Dame un segundo que te averiguo"
+	},
+	{
+		"email": "usuario_1@gmail.com",
+		"message": "Ok, dale"
+	},
+	{
+		"email": "usuario_2@gmail.com",
+		"message": "Listo, si llegamos"
+	},
+	{
+		"email": "usuario_1@gmail.com",
+		"message": "Perfecto!!!! y hasta que hora están?"
+	},
+	{
+		"email": "usuario_2@gmail.com",
+		"message": "Estamos hasta las 23:45 PM"
+	},
+	{
+		"email": "usuario_1@gmail.com",
+		"message": "Bueno genial, armo el pedido entonces. Saludos."
+	},
+	{
+		"email": "usuario_2@gmail.com",
+		"message": "Dale. Saludos."
+	}
+]

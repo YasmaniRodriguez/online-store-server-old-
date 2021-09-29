@@ -1,0 +1,92 @@
+[
+	{
+		"code": "nj-vOB",
+		"name": "Naranja",
+		"category": "Frutas y Verduras",
+		"description": "De Ombligo",
+		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_laranja-256.png",
+		"price": 120,
+		"stock": 500
+	},
+	{
+		"code": "mz-vRD",
+		"name": "Manzanas",
+		"category": "Frutas y Verduras",
+		"description": "Red Delicious",
+		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_maca-256.png",
+		"price": 580,
+		"stock": 500
+	},
+	{
+		"code": "bn-vCV",
+		"name": "Bananas",
+		"category": "Frutas y Verduras",
+		"description": "Cavendish",
+		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_banana-256.png",
+		"price": 900,
+		"stock": 500
+	},
+	{
+		"code": "tm-vRE",
+		"name": "Tomate",
+		"category": "Frutas y Verduras",
+		"description": "Red Especial",
+		"image": "https://cdn2.iconfinder.com/data/icons/flat-vegetables/32/vegetables_flat_7-256.png",
+		"price": 1280,
+		"stock": 500
+	},
+	{
+		"code": "pt-vHS",
+		"name": "Palta",
+		"category": "Frutas y Verduras",
+		"description": "Hass",
+		"image": "https://cdn1.iconfinder.com/data/icons/fruit-136/64/Fruit_iconfree_Filled_Outline_avocado-healthy-organic-food-fruit_icon-256.png",
+		"price": 1700,
+		"stock": 500
+	},
+	{
+		"code": "lm-vES",
+		"name": "Limón",
+		"category": "Frutas y Verduras",
+		"description": "Especial",
+		"image": "https://cdn1.iconfinder.com/data/icons/fresh-fruit-2/128/lemon-256.png",
+		"price": 2300,
+		"stock": 500
+	},
+	{
+		"code": "ml-vCT",
+		"name": "Melón",
+		"category": "Frutas y Verduras",
+		"description": "Cantaloupe",
+		"image": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_melao-128.png",
+		"price": 2860,
+		"stock": 500
+	},
+	{
+		"code": "rp-vBL",
+		"name": "Repollo",
+		"category": "Frutas y Verduras",
+		"description": "Blanco",
+		"image": "https://cdn4.iconfinder.com/data/icons/vegetables-97/200/Cabbage-256.png",
+		"price": 3350,
+		"stock": 500
+	},
+	{
+		"code": "zh-vSL",
+		"name": "Zanahoria",
+		"category": "Frutas y Verduras",
+		"description": "Selección",
+		"image": "https://cdn2.iconfinder.com/data/icons/thesquid-ink-40-free-flat-icon-pack/64/carrot-256.png",
+		"price": 4320,
+		"stock": 500
+	},
+	{
+		"code": "an-vCO",
+		"name": "Ananá",
+		"category": "Frutas y Verduras",
+		"description": "Comercial",
+		"image": "https://cdn0.iconfinder.com/data/icons/fruit-96/126/pineapple-256.png",
+		"price": 4990,
+		"stock": 500
+	}
+]

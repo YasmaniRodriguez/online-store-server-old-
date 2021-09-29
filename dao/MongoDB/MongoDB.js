@@ -16,7 +16,7 @@ mongoose
 class mongo {
 	constructor() {}
 
-	buildSchema() {
+	async buildSchema() {
 		console.log("fantastic, everything is ready");
 	}
 

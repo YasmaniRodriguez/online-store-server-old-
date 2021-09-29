@@ -1,12 +1,8 @@
+const env = require("../../env.js");
+
 const knex = require("knex")({
 	client: "mysql",
-	connection: {
-		host: "127.0.0.1",
-		port: 3306,
-		user: "root",
-		password: "12345678",
-		database: "store",
-	},
+	connection: env.MYSQL_LOCAL_OPTIONS,
 });
 
 class mysql {
@@ -78,6 +74,7 @@ class mysql {
 							.unsigned()
 							.references("id")
 							.inTable("buyers");
+						table.integer("status");
 						table.timestamps(true, true);
 					})
 					.then(() =>
@@ -99,7 +96,11 @@ class mysql {
 				return knex.schema
 					.createTable("orderrows", (table) => {
 						table.increments("id").primary();
-						table.string("product", 20);
+						table
+							.integer("product")
+							.unsigned()
+							.references("id")
+							.inTable("products");
 						table.decimal("quantity");
 						table.decimal("amount");
 						table.timestamps(true, true);
@@ -128,9 +129,9 @@ class mysql {
 				return knex.schema
 					.createTable("messages", (table) => {
 						table.increments("id").primary();
-						table.string("alias");
-						table.timestamps(true, true);
+						table.string("email");
 						table.string("message");
+						table.timestamps(true, true);
 					})
 					.then(() =>
 						console.log("congrats, messages table is created successfully!")
@@ -145,6 +146,146 @@ class mysql {
 				console.log("fantastic, messages table already exists!");
 			}
 		});
+	}
+
+	async addProducts(product) {
+		knex
+			.insert([
+				{
+					code: product.code,
+					name: product.name,
+					category: product.category,
+					description: product.description,
+					image: product.image,
+					price: product.price,
+					stock: product.stock,
+				},
+			])
+			.into("products")
+			.then(() => {
+				console.log("product uploaded");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
+	async getProducts(product = null) {
+		if (!product) {
+			const data = await knex.select().from("products");
+			return data;
+		} else {
+			const data = await knex("products").where("code", product).select();
+			return data;
+		}
+	}
+
+	async updateProducts(product = null, fields) {
+		if (!product) {
+			await knex("products").update(fields);
+		} else {
+			knex("products")
+				.where("code", product)
+				.update(fields)
+				.then(() => {
+					console.log("product updated");
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
+	}
+
+	async deleteProducts(product = null) {
+		if (!product) {
+			await knex("products").del();
+		} else {
+			knex("products")
+				.where("code", product)
+				.del()
+				.then(() => {
+					console.log("product removed");
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
+	}
+
+	async addMessages(message) {
+		knex
+			.insert([
+				{
+					emial: message.email,
+					message: message.message,
+				},
+			])
+			.into("messages")
+			.then(() => {
+				console.log("message delivered");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
+	async getMessages() {
+		knex.select("email", "message", "updated_at").from("messages");
+	}
+
+	async addOrders(order) {}
+
+	async getOrders(order = null) {
+		if (!order) {
+			const data = await knex("orders")
+				.join("buyers", "orders.buyer", "=", "buyers.id")
+				.join("orderrows", "orders.id", "=", "orderrows.order")
+				.join("products", "products.id", "=", "orderrows.product")
+				.select(
+					"orders.code",
+					"orders.total_amount",
+					"orders.total_quantity",
+					"orders.status",
+					"buyers.name",
+					"buyers.phone",
+					"buyers.email",
+					"orderrows.quantity",
+					"orderrows.amount",
+					"products.code",
+					"products.name",
+					"products.category",
+					"products.description",
+					"products.image",
+					"products.price",
+					"products.stock"
+				);
+			return data;
+		} else {
+			const data = await knex("orders")
+				.where("code", order)
+				.join("buyers", "orders.buyer", "=", "buyers.id")
+				.join("orderrows", "orders.id", "=", "orderrows.order")
+				.join("products", "products.id", "=", "orderrows.product")
+				.select(
+					"orders.code",
+					"orders.total_amount",
+					"orders.total_quantity",
+					"orders.status",
+					"buyers.name",
+					"buyers.phone",
+					"buyers.email",
+					"orderrows.quantity",
+					"orderrows.amount",
+					"products.code",
+					"products.name",
+					"products.category",
+					"products.description",
+					"products.image",
+					"products.price",
+					"products.stock"
+				);
+			return data;
+		}
 	}
 }
 
