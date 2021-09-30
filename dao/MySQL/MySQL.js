@@ -298,7 +298,8 @@ class mysql {
 					.join("orderrows", "orders.id", "=", "orderrows.order")
 					.join("products", "products.id", "=", "orderrows.product")
 					.select({
-						code: "orders.code",
+						id: "orders.id",
+						trackingCode: "orders.code",
 						totalAmount: "orders.total_amount",
 						totalQuantity: "orders.total_quantity",
 						status: "orders.status",
@@ -317,7 +318,7 @@ class mysql {
 					})
 			).reduce((result, row) => {
 				result[row.id] = result[row.id] || {
-					code: row.code,
+					trackingCode: row.trackingCode,
 					totalAmount: row.totalAmount,
 					totalQuantity: row.totalQuantity,
 					status: row.status,
@@ -349,30 +350,50 @@ class mysql {
 					.join("buyers", "orders.buyer", "=", "buyers.id")
 					.join("orderrows", "orders.id", "=", "orderrows.order")
 					.join("products", "products.id", "=", "orderrows.product")
-					.where("code", order)
+					.select({
+						id: "orders.id",
+						trackingCode: "orders.code",
+						totalAmount: "orders.total_amount",
+						totalQuantity: "orders.total_quantity",
+						status: "orders.status",
+						buyerName: "buyers.name",
+						buyerPhone: "buyers.phone",
+						buyerEmail: "buyers.email",
+						productCode: "products.code",
+						productName: "products.name",
+						productCategory: "products.category",
+						productDescription: "products.description",
+						productImage: "products.image",
+						productPrice: "products.price",
+						productStock: "products.stock",
+						productQuantity: "orderrows.quantity",
+						productAmount: "orderrows.amount",
+					})
+					.where("orders.code", order)
 			).reduce((result, row) => {
 				result[row.id] = result[row.id] || {
-					id: row.id,
-					code: row.code,
-					totalAmount: row.total_amount,
-					totalQuantity: row.total_quantity,
+					trackingCode: row.trackingCode,
+					totalAmount: row.totalAmount,
+					totalQuantity: row.totalQuantity,
 					status: row.status,
-					buyerName: row.name,
-					buyerPhone: row.phone,
-					buyerEmail: row.email,
+					buyer: {
+						name: row.buyerName,
+						phone: row.buyerPhone,
+						email: row.buyerEmail,
+					},
 					products: [],
 				};
 
 				result[row.id].products.push({
-					code: row.code,
-					name: row.name,
-					category: row.category,
-					description: row.description,
-					image: row.image,
-					price: row.price,
-					stock: row.stock,
-					quantity: row.quantity,
-					amount: row.stock,
+					code: row.productCode,
+					name: row.productName,
+					category: row.productCategory,
+					description: row.productDescription,
+					image: row.productImage,
+					price: row.productPrice,
+					stock: row.productStock,
+					quantity: row.productQuantity,
+					amount: row.productAmount,
 				});
 				return result;
 			}, {});

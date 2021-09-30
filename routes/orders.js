@@ -11,13 +11,23 @@ router.get("/orders", checkAuthority, (req, res) => {
 		.then((result) => {
 			result.length === 0
 				? res.json({ error: "there is not orders" })
-				: res.json({ products: result });
+				: res.json({ orders: result });
 		})
 		.catch((error) => res.json(error));
 });
 
 router.get("/orders/:id", checkAuthority, (req, res) => {
 	const dataHandler = req.app.get("dataHandler");
+	const myPromise = new Promise((resolve, reject) => {
+		resolve(dataHandler.getOrders(req.params.id));
+	});
+	myPromise
+		.then((result) => {
+			result.length === 0
+				? res.json({ error: "there is not orders" })
+				: res.json({ orders: result });
+		})
+		.catch((error) => res.json(error));
 });
 
 router.post("/orders", checkAuthority, (req, res) => {
