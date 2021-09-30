@@ -61,7 +61,7 @@ server
 		console.log(
 			`magic is happening in http://localhost:${port} and the data persistance mode is ${
 				process.env.DATA_PERSISTENCE_MODE || env.DATA_PERSISTENCE_MODE
-			}. to change persistance mode, you can start server with command: DATA_PERSISTANCE_MODE=MyPersistanceMode npm start. MyPersistanceMode can be: 1 [FileSystem], 2 [MySQL], 3 [SQLite3], 4 [MongoDB] or 5 [Firebase]`
+			}. to change persistance mode, you can start server with command: DATA_PERSISTANCE_MODE=MyPersistanceMode npm start. MyPersistanceMode can be: 1 [MongoDB], 2 [MySQL] or 3 [SQLite3]`
 		);
 	})
 	.on("err", (err) =>

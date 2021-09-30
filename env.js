@@ -1,6 +1,6 @@
 const PRIVATE_KEY = "miclaveultrasecreta123*";
 const PORT = 8080;
-const DATA_PERSISTENCE_MODE = 2;
+const DATA_PERSISTENCE_MODE = 1;
 const MONGO_LOCAL_OPTIONS = {
 	authSource: "admin",
 	user: "root",
@@ -16,6 +16,9 @@ const MYSQL_LOCAL_OPTIONS = {
 	password: "12345678",
 	database: "ecommerce",
 };
+const SQLITE_LOCAL_OPTIONS = {
+	filename: "dao/SQLite/data/ecommerce.sqlite",
+};
 
 module.exports = {
 	PRIVATE_KEY,
@@ -25,4 +28,5 @@ module.exports = {
 	MONGO_LOCAL_URI,
 	MONGO_LOCAL_OPTIONS,
 	MYSQL_LOCAL_OPTIONS,
+	SQLITE_LOCAL_OPTIONS,
 };
