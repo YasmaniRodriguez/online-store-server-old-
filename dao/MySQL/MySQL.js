@@ -170,12 +170,28 @@ class mysql {
 			});
 	}
 
-	async getProducts(product = null) {
-		if (!product) {
+	async getProducts(filters = null) {
+		if (!filters) {
 			const data = await knex.select().from("products");
 			return data;
 		} else {
-			const data = await knex("products").where("code", product).select();
+			let match = new Object();
+			let range = new Object();
+
+			for (let key in filters) {
+				typeof filters[key] === "object"
+					? (range[key] = filters[key])
+					: (match[key] = filters[key]);
+			}
+
+			const data = await knex("products")
+				.where(match)
+				.andWhere(function () {
+					Object.entries(range).forEach((key) => {
+						this.whereBetween(key[0], [key[1].gte, key[1].lte]);
+					});
+				})
+				.select();
 			return data;
 		}
 	}

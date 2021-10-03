@@ -8,8 +8,9 @@ const checkAuthority = require("./authorities.js");
 
 router.get("/products", checkAuthority, (req, res) => {
 	const dataHandler = req.app.get("dataHandler");
+	const filters = req.query;
 	const myPromise = new Promise((resolve, reject) => {
-		resolve(dataHandler.getProducts());
+		resolve(dataHandler.getProducts(filters));
 	});
 	myPromise
 		.then((result) => {
