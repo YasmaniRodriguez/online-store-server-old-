@@ -4,7 +4,7 @@ const router = express.Router();
 const classes = require("../classes.js");
 const checkAuthority = require("./authorities.js");
 
-//get all products
+//get all available products
 
 router.get("/products", checkAuthority, (req, res) => {
 	const dataHandler = req.app.get("dataHandler");
@@ -17,22 +17,6 @@ router.get("/products", checkAuthority, (req, res) => {
 			result.length === 0
 				? res.json({ error: "there is not products" })
 				: res.json({ products: result });
-		})
-		.catch((error) => res.json(error));
-});
-
-//get product by id: refactorizar para que soporte cualquier parametro
-
-router.get("/products/:id", checkAuthority, (req, res) => {
-	const dataHandler = req.app.get("dataHandler");
-	const myPromise = new Promise((resolve, reject) => {
-		resolve(dataHandler.getProducts(req.params.id));
-	});
-	myPromise
-		.then((result) => {
-			result === undefined
-				? res.json({ error: "product was not found" })
-				: res.json({ ...result });
 		})
 		.catch((error) => res.json(error));
 });

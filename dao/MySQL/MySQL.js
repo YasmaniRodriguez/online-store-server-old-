@@ -171,7 +171,7 @@ class mysql {
 	}
 
 	async getProducts(filters = null) {
-		if (!filters) {
+		if (Object.keys(filters).length === 0) {
 			const data = await knex.select().from("products");
 			return data;
 		} else {

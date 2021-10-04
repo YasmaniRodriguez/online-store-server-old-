@@ -38,6 +38,7 @@ class mongo {
 					? (range[key] = { $gte: filters[key].gte, $lte: filters[key].lte })
 					: (match[key] = filters[key]);
 			}
+
 			const data = await products.find({ ...match, ...range });
 			return data;
 		}
