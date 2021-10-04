@@ -25,12 +25,20 @@ class mongo {
 		await newProduct.save();
 	}
 
-	async getProducts(product = null) {
-		if (!product) {
+	async getProducts(filters = null) {
+		if (Object.keys(filters).length === 0) {
 			const data = await products.find({});
 			return data;
 		} else {
-			const data = await products.find({ code: { $eq: product } });
+			let match = new Object();
+			let range = new Object();
+
+			for (let key in filters) {
+				typeof filters[key] === "object"
+					? (range[key] = { $gte: filters[key].gte, $lte: filters[key].lte })
+					: (match[key] = filters[key]);
+			}
+			const data = await products.find({ ...match, ...range });
 			return data;
 		}
 	}

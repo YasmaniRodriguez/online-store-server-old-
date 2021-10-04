@@ -1,6 +1,6 @@
 const PRIVATE_KEY = "miclaveultrasecreta123*";
 const PORT = 8080;
-const DATA_PERSISTENCE_MODE = 2;
+const DATA_PERSISTENCE_MODE = 1;
 const MONGO_LOCAL_OPTIONS = {
 	authSource: "admin",
 	user: "root",
