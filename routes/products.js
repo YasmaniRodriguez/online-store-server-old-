@@ -1,5 +1,6 @@
 import express from "express";
 const router = express.Router();
+const faker = require("faker/locale/en");
 
 const classes = require("../classes.js");
 const checkAuthority = require("./authorities.js");
@@ -19,6 +20,35 @@ router.get("/products", checkAuthority, (req, res) => {
 				: res.json({ products: result });
 		})
 		.catch((error) => res.json(error));
+});
+
+router.get("/fake-products", checkAuthority, (req, res) => {
+	const p_qty = Object.values(req.query)[0];
+
+	function generateFakeProducts(qty = 10) {
+		const products = [];
+		for (let i = 1; i <= qty; i++) {
+			products.push({
+				id: i,
+				code: faker.datatype.uuid(),
+				name: faker.commerce.product(),
+				category: faker.commerce.productName(),
+				description: faker.commerce.productDescription(),
+				image: faker.image.food(),
+				price: faker.commerce.price(),
+				stock: faker.datatype.number(),
+			});
+		}
+		return products;
+	}
+
+	const fakeProducts = generateFakeProducts(p_qty);
+
+	fakeProducts.length === 0
+		? res.json({ error: "there is not products" })
+		: res.json({
+				products: fakeProducts,
+		  });
 });
 
 //add product
