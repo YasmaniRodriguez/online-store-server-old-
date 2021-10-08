@@ -19,6 +19,7 @@ const MYSQL_LOCAL_OPTIONS = {
 const SQLITE_LOCAL_OPTIONS = {
 	filename: "dao/SQLite/data/ecommerce.sqlite",
 };
+const DATA_NORMALIZATION = true;
 
 module.exports = {
 	PRIVATE_KEY,
@@ -29,4 +30,5 @@ module.exports = {
 	MONGO_LOCAL_OPTIONS,
 	MYSQL_LOCAL_OPTIONS,
 	SQLITE_LOCAL_OPTIONS,
+	DATA_NORMALIZATION,
 };

@@ -1,50 +1,134 @@
 [
 	{
-		"email": "usuario_1@gmail.com",
+		"author": {
+			"email": "usuario_1@gmail.com",
+			"name": "Albert",
+			"lastname": "Einstein",
+			"birthday": "14/03/1879",
+			"alias": "Albertico",
+			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
+		},
 		"message": "Hola buen noches, cómo estan?"
 	},
 	{
-		"email": "usuario_2@gmail.com",
-		"message": "Hola, todo bien y vos?"
+		"author": {
+			"email": "usuario_2@gmail.com",
+			"name": "Juan",
+			"lastname": "Perez",
+			"birthday": "09/08/1994",
+			"alias": "Juancito",
+			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
+		},
+		"message": "Hola buenas noches, todo bien y vos?"
 	},
 	{
-		"email": "usuario_1@gmail.com",
+		"author": {
+			"email": "usuario_1@gmail.com",
+			"name": "Albert",
+			"lastname": "Einstein",
+			"birthday": "14/03/1879",
+			"alias": "Albertico",
+			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
+		},
 		"message": "Todo bien, quería preguntarte si hacen envío"
 	},
 	{
-		"email": "usuario_2@gmail.com",
+		"author": {
+			"email": "usuario_2@gmail.com",
+			"name": "Juan",
+			"lastname": "Perez",
+			"birthday": "09/08/1994",
+			"alias": "Juancito",
+			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
+		},
 		"message": "Yyyy depende de la zona, por donde estas?"
 	},
 	{
-		"email": "usuario_1@gmail.com",
+		"author": {
+			"email": "usuario_1@gmail.com",
+			"name": "Albert",
+			"lastname": "Einstein",
+			"birthday": "14/03/1879",
+			"alias": "Albertico",
+			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
+		},
 		"message": "Por Microcentro"
 	},
 	{
-		"email": "usuario_2@gmail.com",
+		"author": {
+			"email": "usuario_2@gmail.com",
+			"name": "Juan",
+			"lastname": "Perez",
+			"birthday": "09/08/1994",
+			"alias": "Juancito",
+			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
+		},
 		"message": "Dame un segundo que te averiguo"
 	},
 	{
-		"email": "usuario_1@gmail.com",
+		"author": {
+			"email": "usuario_1@gmail.com",
+			"name": "Albert",
+			"lastname": "Einstein",
+			"birthday": "14/03/1879",
+			"alias": "Albertico",
+			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
+		},
 		"message": "Ok, dale"
 	},
 	{
-		"email": "usuario_2@gmail.com",
+		"author": {
+			"email": "usuario_2@gmail.com",
+			"name": "Juan",
+			"lastname": "Perez",
+			"birthday": "09/08/1994",
+			"alias": "Juancito",
+			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
+		},
 		"message": "Listo, si llegamos"
 	},
 	{
-		"email": "usuario_1@gmail.com",
+		"author": {
+			"email": "usuario_1@gmail.com",
+			"name": "Albert",
+			"lastname": "Einstein",
+			"birthday": "14/03/1879",
+			"alias": "Albertico",
+			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
+		},
 		"message": "Perfecto!!!! y hasta que hora están?"
 	},
 	{
-		"email": "usuario_2@gmail.com",
+		"author": {
+			"email": "usuario_2@gmail.com",
+			"name": "Juan",
+			"lastname": "Perez",
+			"birthday": "09/08/1994",
+			"alias": "Juancito",
+			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
+		},
 		"message": "Estamos hasta las 23:45 PM"
 	},
 	{
-		"email": "usuario_1@gmail.com",
+		"author": {
+			"email": "usuario_1@gmail.com",
+			"name": "Albert",
+			"lastname": "Einstein",
+			"birthday": "14/03/1879",
+			"alias": "Albertico",
+			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
+		},
 		"message": "Bueno genial, armo el pedido entonces. Saludos."
 	},
 	{
-		"email": "usuario_2@gmail.com",
+		"author": {
+			"email": "usuario_2@gmail.com",
+			"name": "Juan",
+			"lastname": "Perez",
+			"birthday": "09/08/1994",
+			"alias": "Juancito",
+			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
+		},
 		"message": "Dale. Saludos."
 	}
 ]

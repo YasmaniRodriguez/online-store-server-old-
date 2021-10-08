@@ -27,7 +27,7 @@ router.post("/login", (req, res) => {
 		const accessToken = jwt.sign(
 			{ username: user.username, role: user.role },
 			process.env.PRIVATE_KEY || settings.PRIVATE_KEY,
-			{ expiresIn: "60m" }
+			{ expiresIn: "120m" }
 		);
 
 		res.json({ accessToken });

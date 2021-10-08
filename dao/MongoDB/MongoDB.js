@@ -70,8 +70,13 @@ class mongo {
 	}
 
 	async getMessages() {
-		const data = await messages.find({});
-		return data;
+		if (env.DATA_NORMALIZATION === true) {
+			return require("../../functions.js").normalizeData(
+				await messages.find({}, { __v: 0, createdAt: 0 })
+			);
+		} else {
+			return await messages.find({});
+		}
 	}
 
 	async addOrders(order) {

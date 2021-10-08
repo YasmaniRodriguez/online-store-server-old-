@@ -1,4 +1,5 @@
 const env = require("./env.js");
+const { schema, normalize, denormalize } = require("normalizr");
 
 function getDataHandlerFile() {
 	switch (process.env.DATA_PERSISTENCE_MODE || env.DATA_PERSISTENCE_MODE) {
@@ -17,4 +18,19 @@ function getDataHandlerFile() {
 	}
 }
 
-module.exports = { getDataHandlerFile };
+function normalizeData(input) {
+	let author = new schema.Entity("authors", {}, { idAttribute: "email" });
+	let message = new schema.Entity(
+		"messages",
+		{
+			author: author,
+		},
+		{
+			idAttribute: "_id",
+		}
+	);
+	let normalized = normalize(input, [message]);
+	return normalized;
+}
+
+module.exports = { getDataHandlerFile, normalizeData };

@@ -2,7 +2,14 @@ import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema(
 	{
-		email: { type: String },
+		author: {
+			email: { type: String },
+			name: { type: String },
+			lastname: { type: String },
+			birthday: { type: String },
+			alias: { type: String },
+			avatar: { type: String },
+		},
 		message: { type: String },
 	},
 	{ timestamps: true }
