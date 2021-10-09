@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import fs from "fs";
 const products = require("./models/products");
 const orders = require("./models/orders");
 const messages = require("./models/messages");
@@ -70,12 +71,23 @@ class mongo {
 	}
 
 	async getMessages() {
-		if (env.DATA_NORMALIZATION === true) {
-			return require("../../functions.js").normalizeData(
-				await messages.find({}, { __v: 0, createdAt: 0 })
-			);
+		const normalize =
+			require("../../normalization/handler.js").getNormalizedData;
+		const schema = require("../../normalization/schemas/messages.js");
+
+		//const data = await messages.find({}, { __v: 0, createdAt: 0 });
+
+		const data = await fs.promises
+			.readFile("unit-tests/messages.json")
+			.then((content) => {
+				let json = JSON.parse(content.toString("utf-8"));
+				return json;
+			});
+
+		if (env.DATA_NORMALIZATION) {
+			return normalize(data, schema);
 		} else {
-			return await messages.find({});
+			return await messages.find({}, { __v: 0, createdAt: 0 });
 		}
 	}
 
