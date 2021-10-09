@@ -4,8 +4,8 @@ function getNormalizedData(data, schema) {
 	return normalize(data, [schema]);
 }
 
-function getDenormalizedData(data, schema, entities) {
-	return denormalize(data, schema, entities);
+function getDenormalizedData(input, schema, entities) {
+	return denormalize(input, [schema], entities);
 }
 
 module.exports = { getNormalizedData, getDenormalizedData };
