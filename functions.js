@@ -11,6 +11,9 @@ function getDataHandlerFile() {
 		case 3:
 			return "./dao/SQLite/SQLite3.js";
 			break;
+		case 4:
+			return "./dao/FileSystem/FileSystem.js";
+			break;
 		default:
 			console.log("persistence mode was not selected");
 			break;

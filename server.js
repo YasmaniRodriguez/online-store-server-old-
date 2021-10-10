@@ -75,7 +75,7 @@ io.on("connect", function (socket) {
 }); /////////////////////////////////////////////////////////
 
 server.listen(port, function () {
-  console.log("magic is happening in http://localhost:".concat(port, " and the data persistance mode is ").concat(process.env.DATA_PERSISTENCE_MODE || env.DATA_PERSISTENCE_MODE, ". to change persistance mode, you can start server with command: DATA_PERSISTANCE_MODE=MyPersistanceMode npm start. MyPersistanceMode can be: 1 [MongoDB], 2 [MySQL] or 3 [SQLite3]"));
+  console.log("magic is happening in http://localhost:".concat(port, " and the data persistance mode is ").concat(process.env.DATA_PERSISTENCE_MODE || env.DATA_PERSISTENCE_MODE, ". to change persistance mode, you can start server with command: DATA_PERSISTANCE_MODE=MyPersistanceMode npm start. MyPersistanceMode can be: 1 [MongoDB], 2 [MySQL], 3 [SQLite3] or 4 [FileSystem]"));
 }).on("err", function (err) {
   return console.log("something is preventing us grow , more detail in: ".concat(err));
 });
