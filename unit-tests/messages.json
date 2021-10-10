@@ -8,9 +8,7 @@
 			"alias": "Albertico",
 			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
 		},
-		"_id": "615e6f33fc39aef16cbbf23b",
-		"message": "Hola buen noches, cómo estan?",
-		"updatedAt": "2021-10-07T03:53:23.782Z"
+		"message": "Hola buen noches, cómo estan?"
 	},
 	{
 		"author": {
@@ -21,9 +19,7 @@
 			"alias": "Juancito",
 			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
 		},
-		"_id": "615e6f3efc39aef16cbbf23d",
-		"message": "Hola buenas noches, todo bien y vos?",
-		"updatedAt": "2021-10-07T03:53:34.085Z"
+		"message": "Hola buenas noches, todo bien y vos?"
 	},
 	{
 		"author": {
@@ -34,9 +30,7 @@
 			"alias": "Albertico",
 			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
 		},
-		"_id": "6160e846c046faa508364f28",
-		"message": "Todo bien, quería preguntarte si hacen envío",
-		"updatedAt": "2021-10-09T00:54:30.018Z"
+		"message": "Todo bien, quería preguntarte si hacen envío"
 	},
 	{
 		"author": {
@@ -47,9 +41,7 @@
 			"alias": "Juancito",
 			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
 		},
-		"_id": "6160e84fc046faa508364f2a",
-		"message": "Yyyy depende de la zona, por donde estas?",
-		"updatedAt": "2021-10-09T00:54:39.376Z"
+		"message": "Yyyy depende de la zona, por donde estas?"
 	},
 	{
 		"author": {
@@ -60,9 +52,7 @@
 			"alias": "Albertico",
 			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
 		},
-		"_id": "6160e858c046faa508364f2c",
-		"message": "Por Microcentro",
-		"updatedAt": "2021-10-09T00:54:48.215Z"
+		"message": "Por Microcentro"
 	},
 	{
 		"author": {
@@ -73,9 +63,7 @@
 			"alias": "Juancito",
 			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
 		},
-		"_id": "6160e860c046faa508364f2e",
-		"message": "Dame un segundo que te averiguo",
-		"updatedAt": "2021-10-09T00:54:56.204Z"
+		"message": "Dame un segundo que te averiguo"
 	},
 	{
 		"author": {
@@ -86,9 +74,7 @@
 			"alias": "Albertico",
 			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
 		},
-		"_id": "6160e869c046faa508364f30",
-		"message": "Ok, dale",
-		"updatedAt": "2021-10-09T00:55:05.479Z"
+		"message": "Ok, dale"
 	},
 	{
 		"author": {
@@ -99,9 +85,7 @@
 			"alias": "Juancito",
 			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
 		},
-		"_id": "6160e872c046faa508364f32",
-		"message": "Listo, si llegamos",
-		"updatedAt": "2021-10-09T00:55:14.332Z"
+		"message": "Listo, si llegamos"
 	},
 	{
 		"author": {
@@ -112,9 +96,7 @@
 			"alias": "Albertico",
 			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
 		},
-		"_id": "6160e87ac046faa508364f34",
-		"message": "Perfecto!!!! y hasta que hora están?",
-		"updatedAt": "2021-10-09T00:55:22.025Z"
+		"message": "Perfecto!!!! y hasta que hora están?"
 	},
 	{
 		"author": {
@@ -125,9 +107,7 @@
 			"alias": "Juancito",
 			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
 		},
-		"_id": "6160e882c046faa508364f36",
-		"message": "Estamos hasta las 23:45 PM",
-		"updatedAt": "2021-10-09T00:55:30.472Z"
+		"message": "Estamos hasta las 23:45 PM"
 	},
 	{
 		"author": {
@@ -138,9 +118,7 @@
 			"alias": "Albertico",
 			"avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
 		},
-		"_id": "6160e889c046faa508364f38",
-		"message": "Bueno genial, armo el pedido entonces. Saludos.",
-		"updatedAt": "2021-10-09T00:55:37.105Z"
+		"message": "Bueno genial, armo el pedido entonces. Saludos."
 	},
 	{
 		"author": {
@@ -151,8 +129,6 @@
 			"alias": "Juancito",
 			"avatar": "https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-256.png"
 		},
-		"_id": "6160e891c046faa508364f3a",
-		"message": "Dale. Saludos.",
-		"updatedAt": "2021-10-09T00:55:45.602Z"
+		"message": "Dale. Saludos."
 	}
 ]
