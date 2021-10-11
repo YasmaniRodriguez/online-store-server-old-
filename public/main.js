@@ -53,30 +53,20 @@ const messageSchema = new schema.Entity(
 );
 
 socket.on("messages", (data) => {
-	/////////////////////////
-	// const util = require("util");
-	// function print(object) {
-	// 	console.log(util.inspect(object, false, 12, true));
-	// }
-	// /////////////////////////
-	// console.log("--------------NORMALIZED OBJECT----------------");
-	// print(data);
-	// console.log("--------------DENORMALIZED OBJECT----------------");
-	// const denormalize = require("../normalization/handler.js").getDenormalizedData;
-	// const schema = require("../normalization/schemas/messages.js");
-	// print(denormalizedData);
-	// console.log(`Porcentaje de compresión: ${((JSON.stringify(data).length / JSON.stringify(denormalizedData).length) * 100).toFixed(2)} %`);
-	/////////////////////////
-
 	const denormalizedData = denormalize(
 		data.result,
 		[messageSchema],
 		data.entities
 	);
-	renderMessage(denormalizedData);
+	const compressionPercentage = (
+		(JSON.stringify(data).length / JSON.stringify(denormalizedData).length) *
+		100
+	).toFixed(2);
+
+	renderMessage(denormalizedData, compressionPercentage);
 });
 
-const renderMessage = (data) => {
+const renderMessage = (data, compression) => {
 	let html = data
 		.map((message) => {
 			return `<li class="message-item">
@@ -88,6 +78,9 @@ const renderMessage = (data) => {
 		})
 		.join(" ");
 	document.getElementById("messages").innerHTML = html;
+	document.getElementById(
+		"compression-percentage"
+	).innerHTML = `[Porcentaje de compresión: ${compression}]`;
 };
 
 const newMessage = () => {
