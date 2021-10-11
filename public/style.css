@@ -29,6 +29,11 @@ h4 {
 	font-style: italic;
 }
 
+.message-item :nth-child(4) {
+	width: 40px;
+	height: 40px;
+}
+
 #messages-container {
 	height: 15vh;
 	overflow-y: scroll;

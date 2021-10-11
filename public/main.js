@@ -1,4 +1,5 @@
 const socket = io();
+const { schema, normalize, denormalize } = normalizr;
 
 // socket.on("products", (data) => {
 // 	renderProduct(data);
@@ -39,18 +40,50 @@ const socket = io();
 
 //////////////////////////////////////////////
 
+const authorSchema = new schema.Entity("authors", {}, { idAttribute: "email" });
+
+const messageSchema = new schema.Entity(
+	"messages",
+	{
+		author: authorSchema,
+	},
+	{
+		idAttribute: "_id",
+	}
+);
+
 socket.on("messages", (data) => {
-	console.log(data);
-	renderMessage(data);
+	/////////////////////////
+	// const util = require("util");
+	// function print(object) {
+	// 	console.log(util.inspect(object, false, 12, true));
+	// }
+	// /////////////////////////
+	// console.log("--------------NORMALIZED OBJECT----------------");
+	// print(data);
+	// console.log("--------------DENORMALIZED OBJECT----------------");
+	// const denormalize = require("../normalization/handler.js").getDenormalizedData;
+	// const schema = require("../normalization/schemas/messages.js");
+	// print(denormalizedData);
+	// console.log(`Porcentaje de compresión: ${((JSON.stringify(data).length / JSON.stringify(denormalizedData).length) * 100).toFixed(2)} %`);
+	/////////////////////////
+
+	const denormalizedData = denormalize(
+		data.result,
+		[messageSchema],
+		data.entities
+	);
+	renderMessage(denormalizedData);
 });
 
 const renderMessage = (data) => {
 	let html = data
 		.map((message) => {
 			return `<li class="message-item">
-						<p>${message.email}</p>
+						<p>${message.author.email}</p>
 						<p>[${message.updatedAt}]:</p>
 						<p>${message.message}</p>
+						<img src=${message.author.avatar} alt="">
 					</li>`;
 		})
 		.join(" ");
