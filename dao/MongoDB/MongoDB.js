@@ -27,7 +27,7 @@ class mongo {
 
 	async getProducts(filters = null) {
 		if (Object.keys(filters).length === 0) {
-			const data = await products.find({});
+			const data = await products.find({}).lean();
 			return data;
 		} else {
 			let match = new Object();
@@ -39,29 +39,25 @@ class mongo {
 					: (match[key] = filters[key]);
 			}
 
-			const data = await products.find({ ...match, ...range });
+			const data = await products.find({ ...match, ...range }).lean();
 			return data;
 		}
 	}
 
 	async updateProducts(product = null, fields) {
-		if (!product) {
-			await products.update({}, { $set: fields }, { multi: true });
-		} else {
-			await products.update(
-				{ code: { $eq: product } },
-				{ $set: fields },
-				{ multi: true }
-			);
-		}
+		return !product
+			? await products.update({}, { $set: fields }, { multi: true })
+			: await products.update(
+					{ code: { $eq: product } },
+					{ $set: fields },
+					{ multi: true }
+			  );
 	}
 
 	async deleteProducts(product = null) {
-		if (!product) {
-			await products.deleteMany({});
-		} else {
-			await products.deleteOne({ code: { $eq: product } });
-		}
+		return !product
+			? await products.deleteMany({})
+			: products.deleteOne({ code: { $eq: product } });
 	}
 
 	async addMessages(message) {
@@ -84,13 +80,9 @@ class mongo {
 	}
 
 	async getOrders(order = null) {
-		if (!order) {
-			const data = await orders.find({});
-			return data;
-		} else {
-			const data = await orders.find({ code: { $eq: order } });
-			return data;
-		}
+		return !order
+			? await orders.find({}).lean()
+			: orders.find({ code: { $eq: order } }).lean();
 	}
 }
 
