@@ -6,6 +6,7 @@ const env = require("./env.js");
 const port = process.env.PORT || env.PORT;
 const dataHandlerFile = require("./functions.js").getDataHandlerFile();
 const DAO = require(dataHandlerFile);
+const classes = require("./classes.js");
 
 const generateToken = require("./routes/generate-token.js");
 const verifyToken = require("./routes/validate-token.js");
@@ -33,8 +34,17 @@ app.get("/", (req, res) => {
 });
 /////////////////////////////////////////////////////////
 io.on("connect", (socket) => {
+	const undefinedUser = new classes.Profile(
+		"Albert",
+		"Einstein",
+		"1879-03-14",
+		null,
+		"usuario_1@gmail.com",
+		"https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png"
+	);
+
 	console.log(`connection_identifier: ${socket.id}`);
-	socket.emit("id", socket.id);
+	socket.emit("profile", undefinedUser);
 	dataHandler
 		.getMessages()
 		.then((rows) => {

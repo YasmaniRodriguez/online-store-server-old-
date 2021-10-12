@@ -24,6 +24,8 @@ var dataHandlerFile = require("./functions.js").getDataHandlerFile();
 
 var DAO = require(dataHandlerFile);
 
+var classes = require("./classes.js");
+
 var generateToken = require("./routes/generate-token.js");
 
 var verifyToken = require("./routes/validate-token.js");
@@ -57,8 +59,9 @@ app.get("/", function (req, res) {
 }); /////////////////////////////////////////////////////////
 
 io.on("connect", function (socket) {
+  var undefinedUser = new classes.Profile("Albert", "Einstein", "1879-03-14", null, "usuario_1@gmail.com", "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png");
   console.log("connection_identifier: ".concat(socket.id));
-  socket.emit("id", socket.id);
+  socket.emit("profile", undefinedUser);
   dataHandler.getMessages().then(function (rows) {
     io.emit("messages", rows);
   })["catch"](function (err) {

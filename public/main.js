@@ -52,6 +52,10 @@ const messageSchema = new schema.Entity(
 	}
 );
 
+socket.on("profile", (data) => {
+	renderProfile(data);
+});
+
 socket.on("messages", (data) => {
 	const denormalizedData = denormalize(
 		data.result,
@@ -65,6 +69,16 @@ socket.on("messages", (data) => {
 
 	renderMessage(denormalizedData, compressionPercentage);
 });
+
+const renderProfile = (profile) => {
+	document.getElementById("user-profile-image").src = profile.avatar;
+	document.getElementById("user-name").value = profile.name;
+	document.getElementById("user-lastname").value = profile.lastname;
+	document.getElementById("user-birthday").value = profile.birthday;
+	document.getElementById("user-alias").value = profile.alias;
+	document.getElementById("user-email").value = profile.email;
+	document.getElementById("user-avatar").value = profile.avatar;
+};
 
 const renderMessage = (data, compression) => {
 	let html = data
@@ -80,7 +94,7 @@ const renderMessage = (data, compression) => {
 	document.getElementById("messages").innerHTML = html;
 	document.getElementById(
 		"compression-percentage"
-	).innerHTML = `[Porcentaje de compresión: ${compression}]`;
+	).innerHTML = `[compression percentage: ${compression}]`;
 };
 
 const newMessage = () => {

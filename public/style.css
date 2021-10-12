@@ -4,12 +4,29 @@ h5 {
 	color: rgb(44, 168, 157);
 }
 
-#messenger {
+#messaging-center {
 	overflow: hidden;
 }
 
 .modal {
 	max-height: 100vh !important;
+}
+
+#modal-content {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#user-profile {
+	width: 30%;
+	height: 100%;
+}
+
+#messager {
+	width: 60%;
+	background-color: aqua;
+	padding: 10px;
 }
 
 .message-item {
@@ -42,15 +59,14 @@ h5 {
 }
 
 #messenger-form {
-	width: 100vw;
 	display: flex;
 	justify-content: space-around;
 	padding: 20px 20px;
 }
 
-#messenger-form > #email {
+/* #messenger-form > #email {
 	width: 20%;
 }
 #messenger-form > #message {
 	width: 70%;
-}
+} */
