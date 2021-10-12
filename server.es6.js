@@ -44,7 +44,7 @@ io.on("connect", (socket) => {
 			console.log(err);
 		});
 	socket.on("new-message", (message) => {
-		dataHandler.addMessage({ ...message });
+		dataHandler.addMessages({ ...message });
 		dataHandler
 			.getMessages()
 			.then((rows) => {

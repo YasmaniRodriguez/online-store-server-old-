@@ -85,16 +85,22 @@ const renderMessage = (data, compression) => {
 
 const newMessage = () => {
 	let message = {
-		alias: document.getElementById("alias").value,
+		author: {
+			name: document.getElementById("user-name").value,
+			lastname: document.getElementById("user-lastname").value,
+			birthday: document.getElementById("user-birthday").value,
+			alias: document.getElementById("user-alias").value,
+			email: document.getElementById("user-email").value,
+			avatar: document.getElementById("user-avatar").value,
+		},
 		message: document.getElementById("message").value,
 	};
-	console.log(message);
 	socket.emit("new-message", message);
 };
 
 document.addEventListener("DOMContentLoaded", function () {
 	let myBtn = document.getElementById("myBtn");
-	let myAlias = document.getElementById("alias");
+	let myAlias = document.getElementById("user-alias");
 	myBtn.disabled = true;
 	myAlias.onchange = function () {
 		myAlias.value ? (myBtn.disabled = false) : (myBtn.disabled = true);

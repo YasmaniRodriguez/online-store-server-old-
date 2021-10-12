@@ -65,7 +65,7 @@ io.on("connect", function (socket) {
     console.log(err);
   });
   socket.on("new-message", function (message) {
-    dataHandler.addMessage(_objectSpread({}, message));
+    dataHandler.addMessages(_objectSpread({}, message));
     dataHandler.getMessages().then(function (rows) {
       io.emit("messages", rows);
     })["catch"](function (err) {

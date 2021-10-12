@@ -1,5 +1,6 @@
 h1,
-h4 {
+h4,
+h5 {
 	color: rgb(44, 168, 157);
 }
 
@@ -8,7 +9,7 @@ h4 {
 }
 
 .modal {
-	height: 75% !important ;
+	max-height: 100vh !important;
 }
 
 .message-item {
@@ -35,7 +36,7 @@ h4 {
 }
 
 #messages-container {
-	height: 15vh;
+	height: 20vh;
 	overflow-y: scroll;
 	background-color: gainsboro;
 }

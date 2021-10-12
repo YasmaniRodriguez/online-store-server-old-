@@ -28,7 +28,7 @@
 		</script>
 		<script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
-		<script type="module" src="main.js"></script>
+		<script src="main.js"></script>
 	</head>
 	<body>
 		<div class="container z-depth-2">
@@ -98,18 +98,38 @@
 			<div class="modal-content">
 				<h4>Messenger</h4>
 				<h5 id="compression-percentage"></h5>
+				<div id="user-profile">
+					<div class="input-field">
+						<input id="user-name" type="text" class="validate" />
+						<label for="user-name">Name</label>
+					</div>
+					<div class="input-field">
+						<input id="user-lastname" type="text" class="validate" />
+						<label for="user-lastname">Last Name</label>
+					</div>
+					<div class="input-field">
+						<input id="user-birthday" type="date" class="validate" />
+						<label for="user-birthday">Birthday</label>
+					</div>
+					<div class="input-field">
+						<input id="user-alias" type="text" class="validate" />
+						<label for="user-alias">Alias</label>
+					</div>
+					<div class="input-field">
+						<input id="user-email" type="text" class="validate" />
+						<label for="user-email">Email</label>
+					</div>
+					<div class="input-field">
+						<input id="user-avatar" type="text" class="validate" />
+						<label for="user-avatar">Avatar</label>
+					</div>
+				</div>
 				<div id="messages-container">
 					<ul id="messages"></ul>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<form id="messenger-form" onsubmit="return newMessage(this)">
-					<!-- <input
-						id="alias"
-						type="text"
-						name="alias"
-						placeholder="alias@gmail.com"
-					/> -->
 					<input
 						id="message"
 						type="text"
