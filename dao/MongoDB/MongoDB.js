@@ -27,7 +27,7 @@ class mongo {
 
 	async getProducts(filters = null) {
 		if (Object.keys(filters).length === 0) {
-			const data = await products.find({}).lean();
+			const data = await products.find({}, { __v: 0 }).lean();
 			return data;
 		} else {
 			let match = new Object();
@@ -39,7 +39,9 @@ class mongo {
 					: (match[key] = filters[key]);
 			}
 
-			const data = await products.find({ ...match, ...range }).lean();
+			const data = await products
+				.find({ ...match, ...range }, { __v: 0 })
+				.lean();
 			return data;
 		}
 	}
@@ -69,7 +71,7 @@ class mongo {
 		const normalize =
 			require("../../normalization/handler.js").getNormalizedData;
 		const schema = require("../../normalization/schemas/messages.js");
-		const data = await messages.find({}).lean();
+		const data = await messages.find({}, { __v: 0 }).lean();
 
 		return env.DATA_NORMALIZATION ? normalize(data, schema) : data;
 	}
@@ -81,7 +83,7 @@ class mongo {
 
 	async getOrders(order = null) {
 		return !order
-			? await orders.find({}).lean()
+			? await orders.find({}, { __v: 0 }).lean()
 			: orders.find({ code: { $eq: order } }).lean();
 	}
 }
