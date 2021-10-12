@@ -70,8 +70,12 @@ class mongo {
 	}
 
 	async getMessages() {
-		const data = await messages.find({});
-		return data;
+		const normalize =
+			require("../../normalization/handler.js").getNormalizedData;
+		const schema = require("../../normalization/schemas/messages.js");
+		const data = await messages.find({}).lean();
+
+		return env.DATA_NORMALIZATION ? normalize(data, schema) : data;
 	}
 
 	async addOrders(order) {
