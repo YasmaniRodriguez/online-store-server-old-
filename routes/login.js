@@ -18,7 +18,6 @@ const users = [
 
 router.post("/login", (req, res) => {
 	const { username, password } = req.body;
-
 	const user = users.find((u) => {
 		return u.username === username && u.password === password;
 	});
@@ -29,7 +28,8 @@ router.post("/login", (req, res) => {
 			process.env.PRIVATE_KEY || settings.PRIVATE_KEY,
 			{ expiresIn: "120m" }
 		);
-
+		req.session.user = user.username;
+		req.session.role = user.role;
 		res.json({ accessToken });
 	} else {
 		res.send("wrong username or password");

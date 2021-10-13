@@ -26,7 +26,11 @@ var DAO = require(dataHandlerFile);
 
 var classes = require("./classes.js");
 
-var generateToken = require("./routes/generate-token.js");
+var cookieParse = require("cookie-parser");
+
+var session = require("express-session");
+
+var login = require("./routes/login.js");
 
 var verifyToken = require("./routes/validate-token.js");
 
@@ -40,6 +44,12 @@ var messages = require("./routes/messages.js");
 
 var dataHandler = new DAO();
 dataHandler.buildSchema();
+app.use(session({
+  secret: "keyboard",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {}
+}));
 app.use(_express["default"].json());
 app.use(_express["default"].urlencoded({
   extended: true
@@ -47,16 +57,15 @@ app.use(_express["default"].urlencoded({
 app.use(_express["default"]["static"](__dirname + "/public"));
 app.set("socketio", io);
 app.set("dataHandler", dataHandler);
-app.use(generateToken);
+app.use(login);
 app.use(verifyToken, products);
 app.use(verifyToken, carts);
 app.use(verifyToken, orders);
 app.use(verifyToken, messages);
-app.get("/", function (req, res) {
-  res.status(200).sendFile("index.html", {
-    root: __dirname + "/public"
-  });
-}); /////////////////////////////////////////////////////////
+app.use(cookieParse()); // app.get("/", (req, res) => {
+// 	//res.status(200).sendFile("index.html", { root: __dirname + "/public" });
+// });
+/////////////////////////////////////////////////////////
 
 io.on("connect", function (socket) {
   var undefinedUser = new classes.Profile("Albert", "Einstein", "1879-03-14", null, "usuario_1@gmail.com", "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png");

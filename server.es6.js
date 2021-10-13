@@ -7,8 +7,10 @@ const port = process.env.PORT || env.PORT;
 const dataHandlerFile = require("./functions.js").getDataHandlerFile();
 const DAO = require(dataHandlerFile);
 const classes = require("./classes.js");
+const cookieParse = require("cookie-parser");
+const session = require("express-session");
 
-const generateToken = require("./routes/generate-token.js");
+const login = require("./routes/login.js");
 const verifyToken = require("./routes/validate-token.js");
 const products = require("./routes/products.js");
 const carts = require("./routes/carts.js");
@@ -18,20 +20,30 @@ const messages = require("./routes/messages.js");
 const dataHandler = new DAO();
 dataHandler.buildSchema();
 
+app.use(
+	session({
+		secret: "keyboard",
+		resave: false,
+		saveUninitialized: false,
+		cookie: {},
+	})
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.set("socketio", io);
 app.set("dataHandler", dataHandler);
-app.use(generateToken);
+app.use(login);
 app.use(verifyToken, products);
 app.use(verifyToken, carts);
 app.use(verifyToken, orders);
 app.use(verifyToken, messages);
+app.use(cookieParse());
 
-app.get("/", (req, res) => {
-	res.status(200).sendFile("index.html", { root: __dirname + "/public" });
-});
+// app.get("/", (req, res) => {
+// 	//res.status(200).sendFile("index.html", { root: __dirname + "/public" });
+// });
+
 /////////////////////////////////////////////////////////
 io.on("connect", (socket) => {
 	const undefinedUser = new classes.Profile(
