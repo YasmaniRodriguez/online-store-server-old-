@@ -9,6 +9,7 @@ const DAO = require(dataHandlerFile);
 const classes = require("./classes.js");
 const cookieParse = require("cookie-parser");
 const session = require("express-session");
+const path = require("path");
 
 const login = require("./routes/login.js");
 const verifyToken = require("./routes/validate-token.js");
@@ -30,7 +31,7 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(path.join(__dirname, "public")));
 app.set("socketio", io);
 app.set("dataHandler", dataHandler);
 app.use(login);
